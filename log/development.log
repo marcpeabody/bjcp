@@ -1,0 +1,66 @@
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (24.0ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mPRAGMA index_list("schema_migrations")[0m
+  [1m[35m (13.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to Initial (20110817125850)
+  [1m[35m (0.6ms)[0m  CREATE TABLE "styles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category_number" varchar(255), "category_name" varchar(255), "style_number" varchar(255), "style_name" varchar(255), "aroma" varchar(255), "appearance" varchar(255), "flavor" varchar(255), "mouthfeel" varchar(255), "impression" varchar(255), "history" varchar(255), "comments" varchar(255), "ingredients" varchar(255), "examples" varchar(255), "og_low" varchar(255), "og_high" varchar(255), "fg_low" varchar(255), "fg_high" varchar(255), "ibu_low" varchar(255), "ibu_high" varchar(255), "srm_low" varchar(255), "srm_high" varchar(255), "abv_low" varchar(255), "abv_high" varchar(255)) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20110817125850')[0m
+  [1m[35m (0.3ms)[0m  select sqlite_version(*)
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.0ms)[0m  PRAGMA index_list("styles")
+  [1m[36m (4.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (0.3ms)[0m  SHOW search_path
+  [1m[36m (2.8ms)[0m  [1m SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'schema_migrations'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+[0m
+  [1m[35m (1.9ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to Initial (20110817125850)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (5.4ms)[0m  [1mCREATE TABLE "styles" ("id" serial primary key, "category_number" character varying(255), "category_name" character varying(255), "style_number" character varying(255), "style_name" character varying(255), "aroma" character varying(255), "appearance" character varying(255), "flavor" character varying(255), "mouthfeel" character varying(255), "impression" character varying(255), "history" character varying(255), "comments" character varying(255), "ingredients" character varying(255), "examples" character varying(255), "og_low" character varying(255), "og_high" character varying(255), "fg_low" character varying(255), "fg_high" character varying(255), "ibu_low" character varying(255), "ibu_high" character varying(255), "srm_low" character varying(255), "srm_high" character varying(255), "abv_low" character varying(255), "abv_high" character varying(255)) [0m
+  [1m[35m (0.6ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110817125850')
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.2ms)[0m  [1mSHOW search_path[0m
+  [1m[35m (1.7ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'styles'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35m (0.2ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to Initial (20110817125850)
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.0ms)[0m  DROP TABLE "styles"
+  [1m[36m (0.7ms)[0m  [1mDELETE FROM "schema_migrations" WHERE "schema_migrations"."version" = '20110817125850'[0m
+  [1m[35m (25.3ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[36m (0.3ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Migrating to Initial (20110817125850)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (29.5ms)[0m  [1mCREATE TABLE "styles" ("id" serial primary key, "category_number" character varying(255), "category_name" character varying(255), "style_number" character varying(255), "style_name" character varying(255), "aroma" text, "appearance" text, "flavor" text, "mouthfeel" text, "impression" text, "history" text, "comments" text, "ingredients" text, "examples" text, "og_low" character varying(255), "og_high" character varying(255), "fg_low" character varying(255), "fg_high" character varying(255), "ibu_low" character varying(255), "ibu_high" character varying(255), "srm_low" character varying(255), "srm_high" character varying(255), "abv_low" character varying(255), "abv_high" character varying(255)) [0m
+  [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110817125850')
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+  [1m[36m (0.1ms)[0m  [1mSHOW search_path[0m
+  [1m[35m (1.5ms)[0m   SELECT distinct i.relname, d.indisunique, d.indkey, t.oid
+ FROM pg_class t
+ INNER JOIN pg_index d ON t.oid = d.indrelid
+ INNER JOIN pg_class i ON d.indexrelid = i.oid
+ WHERE i.relkind = 'i'
+ AND d.indisprimary = 'f'
+ AND t.relname = 'styles'
+ AND i.relnamespace IN (SELECT oid FROM pg_namespace WHERE nspname IN ('"$user"','public') )
+ ORDER BY i.relname

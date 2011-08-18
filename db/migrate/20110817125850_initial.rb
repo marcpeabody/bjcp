@@ -4,15 +4,17 @@ class Initial < ActiveRecord::Migration
       t.string :category_number
       t.string :category_name
 
-      t.string :subcategory
-      t.string :name
-      t.string :appearance
-      t.string :flavor
-      t.string :mouthfeel
-      t.string :impression
-      t.string :history
-      t.string :comments
-      t.string :ingredients
+      t.string :style_number
+      t.string :style_name
+      t.text :aroma
+      t.text :appearance
+      t.text :flavor
+      t.text :mouthfeel
+      t.text :impression
+      t.text :history
+      t.text :comments
+      t.text :ingredients
+      t.text :examples
 
       t.string :og_low
       t.string :og_high

@@ -1,0 +1,31 @@
+LOG:  database system was shut down at 2011-08-18 00:38:11 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  role "postgres" does not exist
+FATAL:  role "postgres" does not exist
+FATAL:  role "postgres" does not exist
+FATAL:  role "postgres" does not exist
+FATAL:  database "bjcp_test" does not exist
+ERROR:  source database "template1" is being accessed by other users
+DETAIL:  There are 1 other session(s) using the database.
+STATEMENT:  CREATE DATABASE "bjcp_test" ENCODING = 'utf8'
+FATAL:  database "bjcp_dev" does not exist
+ERROR:  source database "template1" is being accessed by other users
+DETAIL:  There are 1 other session(s) using the database.
+STATEMENT:  CREATE DATABASE "bjcp_dev" ENCODING = 'utf8'
+FATAL:  database "bjcp_test" does not exist
+ERROR:  source database "template1" is being accessed by other users
+DETAIL:  There are 1 other session(s) using the database.
+STATEMENT:  CREATE DATABASE "bjcp_test" ENCODING = 'utf8'
+FATAL:  database "bjcp_dev" does not exist
+ERROR:  source database "template1" is being accessed by other users
+DETAIL:  There are 1 other session(s) using the database.
+STATEMENT:  CREATE DATABASE "bjcp_dev" ENCODING = 'utf8'
+FATAL:  database "bjcp_test" does not exist
+FATAL:  database "bjcp_dev" does not exist
+ERROR:  value too long for type character varying(255)
+STATEMENT:  INSERT INTO "styles" ("abv_high", "abv_low", "appearance", "aroma", "category_name", "category_number", "comments", "examples", "fg_high", "fg_low", "flavor", "history", "ibu_high", "ibu_low", "impression", "ingredients", "mouthfeel", "og_high", "og_low", "srm_high", "srm_low", "style_name", "style_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING "id"
+ERROR:  invalid byte sequence for encoding "UTF8": 0x92
+STATEMENT:  INSERT INTO "styles" ("abv_high", "abv_low", "appearance", "aroma", "category_name", "category_number", "comments", "examples", "fg_high", "fg_low", "flavor", "history", "ibu_high", "ibu_low", "impression", "ingredients", "mouthfeel", "og_high", "og_low", "srm_high", "srm_low", "style_name", "style_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING "id"
+ERROR:  invalid byte sequence for encoding "UTF8": 0x92
+STATEMENT:  INSERT INTO "styles" ("abv_high", "abv_low", "appearance", "aroma", "category_name", "category_number", "comments", "examples", "fg_high", "fg_low", "flavor", "history", "ibu_high", "ibu_low", "impression", "ingredients", "mouthfeel", "og_high", "og_low", "srm_high", "srm_low", "style_name", "style_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING "id"
