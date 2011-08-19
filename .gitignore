@@ -1,0 +1,5 @@
+tmp/*
+log/*
+public/assets/
+.sass_cache/
+.DS_Store

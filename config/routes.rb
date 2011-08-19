@@ -1,4 +1,7 @@
 Bjcp::Application.routes.draw do
+  root :to => 'styles#index'
+  match 'styles/all' => 'styles#all_styles'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

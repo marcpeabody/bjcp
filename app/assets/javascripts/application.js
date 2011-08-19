@@ -6,4 +6,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require mustache.js
+//= require underscore.js
 //= require_tree .
