@@ -7,11 +7,11 @@ $(function(){
     window.categories = data;
   });
 
-  $('.styleNumberQuiz').click(function(e){
+  $('.styleNumberQuiz').live('click', function(e){
     e.preventDefault();
     getStyleNumberQuiz();
   });
-  $('.categoryNumberQuiz').click(function(e){
+  $('.categoryNumberQuiz').live('click', function(e){
     e.preventDefault();
     getCategoryNumberQuiz();
   });
@@ -20,29 +20,28 @@ $(function(){
     return _.sample(window.styles, count);
   }
   var getCategoryNumberQuiz = function(){
-    optionCount = 2;
+    optionCount = 4;
     // TODO do for categories
     stylesChosen = getStyle(optionCount);
     answerIndex = Math.floor(Math.random() * optionCount);
-    quiz = Mustache.to_html(quizTemplate, {style1_name: stylesChosen[0].style_name,
-                                           style2_name: stylesChosen[1].style_name,
+    quiz = Mustache.to_html(quizTemplate, {stylesChosen : stylesChosen,
                                            answerIndex: answerIndex,
                                            answerStyleNumber: stylesChosen[answerIndex].style_number})
     $('.content').html(quiz)
   }
   var getStyleNumberQuiz = function(){
     // TODO more options - is Mustache really the right choice?
-    optionCount = 2;
+    optionCount = 4;
     stylesChosen = getStyle(optionCount);
     answerIndex = Math.floor(Math.random() * optionCount);
-    quiz = Mustache.to_html(quizTemplate, {style1_name: stylesChosen[0].style_name,
-                                           style2_name: stylesChosen[1].style_name,
-                                           answerIndex: answerIndex,
-                                           answerStyleNumber: stylesChosen[answerIndex].style_number})
-    $('.content').html(quiz)
+    askingStyleNumber = stylesChosen[answerIndex].style_number;
+    $quiz = $(Mustache.to_html(quizTemplate, {options : stylesChosen
+                                             , questionText: 'Style '+askingStyleNumber+' is:'}));
+    $quiz.find('.answerOption').eq(answerIndex).addClass('correct');
+    $('.content').html($quiz);
   }
 
-  var quizTemplate = "Style {{answerStyleNumber}} is: a) {{style1_name}} or b) {{style2_name}}  =   ({{answerIndex}})"
+  var quizTemplate = "<div class='question'>{{questionText}} <span class='status'></span> <ul>{{#options}} <li class='answerOption'>{{style_name}}</li> {{/options}}</ul></div>"
 
   _.sample = function(arr, count){
     if(_.isUndefined(count)) count = 1;
@@ -50,10 +49,18 @@ $(function(){
     arrPicked = [];
     _(count).times(function(){
       randomIndex = Math.floor(Math.random() * arrToPick.length);
-      console.log(randomIndex)
       chosen = arrToPick.splice(randomIndex,1)[0];
       arrPicked.unshift(chosen);
     });
     return arrPicked;
   }
+
+  $('.answerOption').live('click', function(){
+    if($(this).hasClass('correct')){
+      status = 'Correct! <a class="styleNumberQuiz" href="#">next question</a>';
+    }else{
+      status = 'Sorry... "'+$(this).html()+'" is not correct.';
+    }
+    $('.status').html(status)
+  });
 });
