@@ -22,12 +22,12 @@ $(function(){
   var getCategoryNumberQuiz = function(){
     optionCount = 4;
     // TODO do for categories
-    stylesChosen = getStyle(optionCount);
-    answerIndex = Math.floor(Math.random() * optionCount);
-    quiz = Mustache.to_html(quizTemplate, {stylesChosen : stylesChosen,
-                                           answerIndex: answerIndex,
-                                           answerStyleNumber: stylesChosen[answerIndex].style_number})
-    $('.content').html(quiz)
+    // stylesChosen = getStyle(optionCount);
+    // answerIndex = Math.floor(Math.random() * optionCount);
+    // quiz = Mustache.to_html(quizTemplate, {stylesChosen : stylesChosen,
+    //                                        answerIndex: answerIndex,
+    //                                        answerStyleNumber: stylesChosen[answerIndex].style_number})
+    // $('.content').html(quiz)
   }
   var getStyleNumberQuiz = function(){
     // TODO more options - is Mustache really the right choice?
