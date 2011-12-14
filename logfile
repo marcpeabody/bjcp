@@ -29,3 +29,7 @@ ERROR:  invalid byte sequence for encoding "UTF8": 0x92
 STATEMENT:  INSERT INTO "styles" ("abv_high", "abv_low", "appearance", "aroma", "category_name", "category_number", "comments", "examples", "fg_high", "fg_low", "flavor", "history", "ibu_high", "ibu_low", "impression", "ingredients", "mouthfeel", "og_high", "og_low", "srm_high", "srm_low", "style_name", "style_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING "id"
 ERROR:  invalid byte sequence for encoding "UTF8": 0x92
 STATEMENT:  INSERT INTO "styles" ("abv_high", "abv_low", "appearance", "aroma", "category_name", "category_number", "comments", "examples", "fg_high", "fg_low", "flavor", "history", "ibu_high", "ibu_low", "impression", "ingredients", "mouthfeel", "og_high", "og_low", "srm_high", "srm_low", "style_name", "style_number") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23) RETURNING "id"
+LOG:  received smart shutdown request
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down

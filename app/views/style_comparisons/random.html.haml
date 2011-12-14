@@ -1,0 +1,25 @@
+- @style_comparison_count.times do |i|
+  - i += 1
+  %span{:style => "#{'background-color: blue;' if i == @style_comparison_index}"}= i
+%div{:style => 'text-align: center;'}
+  %b Notes:
+  = text_area :style_comparison, :notes, :cols => 100, :rows => 2
+- @style_comparison.styles.each_with_index do |style,index|
+  - width = 300
+  .sideBySideColumn{:style => "width: #{width}px; padding: 10px 10px 10px; display: block; position: absolute; left:#{(index*width)+50}px;"}
+    .style_name= "#{style.style_number} #{style.style_name}"
+    .aroma= with_header style, :aroma
+    .appearance= with_header style, :appearance
+    .flavor= with_header style, :flavor
+    .mouthfeel= with_header style, :mouthfeel
+    .impression= with_header style, :impression, "Overall Impression"
+    .history= with_header style, :history
+    .comments= with_header style, :comments
+    .ingredients= with_header style, :ingredients
+    .og_range= with_header style, :og_range, "OG"
+    .fg_range= with_header style, :fg_range, "FG"
+    .ibu_range= with_header style, :ibu_range, "IBU"
+    .srm_range= with_header style, :srm_range, "SRM"
+    .abv_range= with_header style, :abv_range, "ABV"
+    .examples= with_header style, :examples, "Commercial Examples"
+    %div

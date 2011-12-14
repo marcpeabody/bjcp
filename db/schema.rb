@@ -10,7 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817125850) do
+ActiveRecord::Schema.define(:version => 20110827221216) do
+
+  create_table "style_comparisons", :force => true do |t|
+    t.string "style_numbers"
+    t.string "notes"
+  end
 
   create_table "styles", :force => true do |t|
     t.string "category_number"

@@ -7,4 +7,7 @@ class StylesController < ApplicationController
     styles = Style.all(:order => 'id')
     render :json => styles.to_json
   end
+
+  def show
+  end
 end

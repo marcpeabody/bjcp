@@ -1,0 +1,57 @@
+comps = "American Amber Ale,American Pale Ale,California Common Beer
+American Amber Ale,American Brown Ale,American Pale Ale
+American Amber Ale,American Pale Ale,California Common Beer
+American Barleywine,Old Ale,Strong Scotch Ale
+American Brown Ale,American Pale Ale,California Common Beer
+American Brown Ale,Mild,Northern English Brown Ale
+American Brown Ale,Mild,Southern English Brown
+American IPA,English IPA,Imperial IPA
+American Pale Ale,Belgian Pale Ale,Extra Special/Strong Bitter (English Pale Ale)
+American Pale Ale,English Barleywine,Strong Scotch Ale
+American Stout,Dry Stout,Foreign Extra Stout
+American Stout,Dry Stout,Oatmeal Stout
+American Stout,Dry Stout,Robust Porter
+American Stout,Dry Stout,Sweet Stout
+American Stout,Foreign Extra Stout,Oatmeal Stout
+American Stout,Foreign Extra Stout,Robust Porter
+American Stout,Foreign Extra Stout,Sweet Stout
+American Wheat or Rye Beer,Straight (Unblended) Lambic,Weizen/Weissbier
+American Wheat or Rye Beer,Weizen/Weissbier,Roggenbier (German Rye Beer)
+Baltic Porter,Belgian Dark Strong Ale,Russian Imperial Stout
+Belgian Blond Ale,Belgian Dubbel,Belgian Tripel
+Belgian Blond Ale,Belgian Golden Strong Ale,Belgian Tripel
+Berliner Weisse,Flanders Red Ale,Straight (Unblended) Lambic
+Bière de Garde,California Common Beer,Northern German Altbier
+Bohemian Pilsener,Classic American Pilsner,German Pilsner (Pils)
+Bohemian Pilsener,German Pilsner (Pils),Premium American Lager
+Bohemian Pilsener,German Pilsner (Pils),Standard American Lager
+Brown Porter,Dry Stout,Robust Porter
+Brown Porter,Mild,Southern English Brown
+Brown Porter,Munich Dunkel,Northern English Brown Ale
+Brown Porter,Munich Dunkel,Schwarzbier (Black Beer)
+Brown Porter,Munich Dunkel,Southern English Brown
+California Common Beer,Irish Red Ale,Oktoberfest/Märzen
+Cream Ale,Kölsch,Munich Helles
+Dark American Lager,Munich Dunkel,Schwarzbier (Black Beer)
+Doppelbock,Eisbock,Maibock/Helles Bock
+Doppelbock,Eisbock,Traditional Bock
+Doppelbock,Maibock/Helles Bock,Traditional Bock
+Dortmunder Export,German Pilsner (Pils),Munich Helles
+Dry Stout,Foreign Extra Stout,Sweet Stout
+Dry Stout,Robust Porter,Schwarzbier (Black Beer)
+Düsseldorf Altbier,Irish Red Ale,Northern German Altbier
+Düsseldorf Altbier,Northern German Altbier,Oktoberfest/Märzen
+Düsseldorf Altbier,Oktoberfest/Märzen,Special/Best/Premium Bitter
+Eisbock,Maibock/Helles Bock,Traditional Bock
+English Barleywine,Old Ale,Strong Scotch Ale
+Foreign Extra Stout,Robust Porter,Sweet Stout
+Irish Red Ale,Northern German Altbier,Oktoberfest/Märzen
+Mild,Scottish Light 60/-,Standard/Ordinary Bitter
+Northern German Altbier,Oktoberfest/Märzen,Special/Best/Premium Bitter
+Scottish Heavy 70/-,Scottish Export 80/-,Strong Scotch Ale
+Scottish Light 60/-,Scottish Export 80/-,Strong Scotch Ale
+Scottish Light 60/-,Scottish Heavy 70/-,Strong Scotch Ale
+Standard/Ordinary Bitter,Special/Best/Premium Bitter,Extra Special/Strong Bitter (English Pale Ale)
+Straight (Unblended) Lambic,Weizen/Weissbier,Witbier".split("\n")
+z = comps.collect{|c| c.split(',').collect{|ci| map[ci]||ci }.join(',') }
+
