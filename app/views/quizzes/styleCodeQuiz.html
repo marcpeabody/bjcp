@@ -1,0 +1,60 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  window.Quiz = Ember.Application.create();
+  Quiz.Question = Ember.Object.create({
+    answers: [],
+    answerGuessed: undefined,
+    correctAnswer: undefined,
+    guessedCorrectly: function(){
+      return this.get('answerGuessed').get('isCorrect');
+    }.property('answers','answerGuessed')
+  });
+
+  var runWithSampleStyles = function(limit, callback){
+    $.ajax({url: '/styles/styles', data: {limit: limit}, success: callback});
+  };
+
+  var setupQuiz = function(){
+    runWithSampleStyles(4, function(stylesChosen){
+      var correctAnswer  = _.sample(stylesChosen);
+      correctAnswer['isCorrect'] = true;
+      Quiz.Question.set('correctAnswer', correctAnswer);
+      Quiz.Question.set('answers', _.map(stylesChosen,function(x){ return answerOption(x); }));
+    });
+  };
+
+  var answerOption = function(x){
+    x['click'] = function(){
+      Quiz.Question.set('answerGuessed', this);
+    };
+    return Ember.View.extend(x);
+  }
+  Ember.View.create({templateName: 'say-hello'}).append();
+  setupQuiz();
+});
+</script>
+<style>
+  .correct{ color: green; }
+</style>
+<script type="text/x-handlebars" data-template-name="say-hello">
+  <div class='question'>
+    {{#with Quiz.Question}}
+      Style {{correctAnswer.style_number}} is:
+      {{#if answerGuessed}}
+        {{#if guessedCorrectly}}
+          <span><br/><font color="green">Correct!
+              <a class="'+window.currentQuiz+'" href="#">next question</a></font
+          </span>
+        {{/if}}
+        {{#unless guessedCorrectly}}
+        <br/><font color="red"> Sorry... "{{answerGuessed.style_name}}" is style {{answerGuessed.style_number}}.</font>
+        {{/unless}}
+      {{/if}}
+      <ul class='multiple-choice'>{{#each answers}}
+        {{#view this contentBinding="this"}}
+          <li>{{style_name}}</li>
+        {{/view}}
+      {{/each}}</ul>
+    {{/with}}
+  </div>
+</script>

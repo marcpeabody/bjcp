@@ -2,8 +2,7 @@ $(function(){
   var $quiz;
   var quizTypes = ['Aroma', 'Apperance', 'Flavor', 'Mouthfeel', 'History', 'Impression', 'Comments', 'Ingredients', 'Examples']
 
-  $.get('styles/all', function(data){
-    console.log(data);
+  $.get('/styles/all', function(data){
     window.styles = data;
   });
 
@@ -68,7 +67,11 @@ $(function(){
       chosen = arrToPick.splice(randomIndex,1)[0];
       arrPicked.unshift(chosen);
     });
-    return arrPicked;
+    if(count === 1){
+      return arrPicked[0];
+    }else{
+      return arrPicked;
+    }
   }
 
   $('.answerOption').live('click', function(){

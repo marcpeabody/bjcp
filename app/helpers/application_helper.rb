@@ -44,7 +44,7 @@ module ApplicationHelper
   end
 
   def with_header style, val, header_text=nil
-    raw "<b>#{header_text || val.capitalize}:</b> #{style.send(val.downcase)}"
+    raw "<b>#{header_text || val.to_s.capitalize}:</b> #{style.send(val.to_s.downcase)}"
   end
 
   private

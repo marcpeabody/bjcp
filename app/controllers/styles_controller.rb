@@ -8,6 +8,15 @@ class StylesController < ApplicationController
     render :json => styles.to_json
   end
 
+  def styles
+    if limit = params[:limit]
+      styles = Style.sample(limit)
+    else
+      styles = Style.all
+    end
+    render :json => styles.to_json
+  end
+
   def show
   end
 end
