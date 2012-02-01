@@ -1,0 +1,107 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  window.mainView = undefined;
+  window.Quiz = Ember.Application.create();
+
+  Quiz.QuizLink = Ember.View.extend({
+    click: function(e){
+      e.preventDefault();
+      var template = this.get('templateName');
+      if(template){
+        Quiz.MenuModel.set('selectedType', template);
+        Quiz.Question.redisplay();
+      }else{
+        Quiz.Question.setup();
+      }
+    }
+  });
+
+  Quiz.MenuModel = Ember.Object.create({
+    selectedType: undefined,
+    allTemplates: ['style-code-prompt', 'style-aroma-prompt',
+                   'style-appearance-prompt', 'style-flavor-prompt',
+                   'style-mouthfeel-prompt', 'style-example-prompt'],
+    promptTemplate: function(){
+      var self = this;
+      var activeTemplate = self.get('selectedType') || 'code';
+      if(activeTemplate === 'random'){
+        return _.sample(self.get('allTemplates'));
+      }else{
+        return 'style-'+activeTemplate+'-prompt';
+      }
+    }.property('selectedType')
+  });
+
+  Quiz.Question = Ember.Object.create({
+    promptView: Ember.View.extend(),
+    answersView: Ember.View.extend({templateName: 'basicAnswers'}),
+    activeQuestionType: Quiz.StyleCodeQuestionLink,
+    answers: [],
+    answerGuessed: undefined,
+    correctAnswer: undefined,
+    guessedCorrectly: function(){
+      var guessed = this.get('answerGuessed')
+      return guessed && guessed.get('isCorrect');
+    }.property('answers','answerGuessed'),
+    guessedIncorrectly: function(){
+      var guessed = this.get('answerGuessed')
+      return guessed && !guessed.get('isCorrect');
+    }.property('answers','answerGuessed'),
+    clear: function(){
+      this.set('correctAnswer', undefined);
+      this.set('answerGuessed', undefined);
+      this.set('answers', []);
+      //this.set('prompt', 'loading question...');
+    },
+    redisplay: function() {
+      var self = this;
+      var promptTemplate = Quiz.MenuModel.get('promptTemplate');
+      self.set('promptView', Ember.View.extend({templateName: promptTemplate}));
+      if(!self.get('answersTemplate')) self.set('answersTemplate','basicAnswers');// default
+      self.set('answersView', Ember.View.extend({templateName: self.get('answersTemplate')}));
+      window.setMainView('multi-choice-quiz');
+    },
+    setup: function() {
+      var self = this;
+      self.clear();
+      self.redisplay();
+      runWithSampleStyles(4, function(stylesChosen){
+        var correctAnswer  = _.sample(stylesChosen);
+        correctAnswer['isCorrect'] = true;
+        self.set('correctAnswer', correctAnswer);
+        self.set('answers', _.map(stylesChosen,function(x){ return self.answerOption(x); }));
+      });
+    },
+    answerOption: function(x) {
+      x['click'] = function(){
+        Quiz.Question.set('answerGuessed', this);
+      };
+      return Ember.View.extend(x);
+    }
+  });
+  Ember.View.create({templateName: 'quiz-menu'}).append();
+  Quiz.Question.setup();
+});
+</script>
+<style>
+  .correct{ color: green; }
+</style>
+<%= render :partial => 'menu' %>
+<%= render :partial => 'prompts' %>
+<script type="text/x-handlebars" data-template-name="multi-choice-quiz">
+  <div class='question'>
+    {{#with Quiz.Question}}
+      {{view promptView  questionBinding="this"}}
+      {{view answersView questionBinding="this"}}
+    {{/with}}
+  </div>
+</script>
+<script type="text/x-handlebars" data-template-name="basicAnswers">
+  {{#with question}}
+    <ul class='multiple-choice'>{{#each answers}}
+      {{#view this contentBinding="this"}}
+        <li>{{style_name}}</li>
+      {{/view}}
+    {{/each}}</ul>
+  {{/with}}
+</script>

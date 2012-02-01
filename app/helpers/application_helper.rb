@@ -17,7 +17,7 @@ module ApplicationHelper
   #               36 => '#440607', 37 => '#3F0708', 38 => '#3B0607', 39 => '#3A070B', 40 => '#36080A'}
 
   def tiny_glass_range low_srm, high_srm
-    return 'Colors Varies' unless low_srm.present? && high_srm.present?
+    return 'Color Varies' unless low_srm.present? && high_srm.present?
     raw "<div nowrap>#{tiny_glass(low_srm)}#{low_srm} - #{high_srm}#{tiny_glass(high_srm)}</div>"
   end
 

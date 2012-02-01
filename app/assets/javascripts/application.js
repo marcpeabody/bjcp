@@ -9,4 +9,4 @@
 //= require mustache.js
 //= require underscore.js
 //= require '../../../vendor/assets/javascripts/jquery.qtip'
-//= require_tree .
+//= require quizzes.js

@@ -5,5 +5,7 @@ Bjcp::Application.routes.draw do
   match 'styles/show' => 'styles#show'
   match 'style_comparisons/random' => 'style_comparisons#random'
   match 'judge_procedure/all' => 'judge_procedure#all_questions'
-  match 'quizzes/styleCode' => 'quizzes#style_code'
+  # match 'quizzes/styleCode' => 'quizzes#style_code'
+  # match 'quizzes/appearance' => 'quizzes#appearance'
+  match 'quizzes' => 'quizzes#show'
 end

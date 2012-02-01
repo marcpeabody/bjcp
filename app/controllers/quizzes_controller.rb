@@ -1,5 +1,5 @@
 class QuizzesController < ApplicationController
-  def style_code
-    render 'quizzes/styleCodeQuiz'
+  def show
+    render 'quizzes/styleQuizzes'
   end
 end
