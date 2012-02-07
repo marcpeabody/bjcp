@@ -1,3 +1,21 @@
 ul.multiple-choice li {
   cursor: pointer;
 }
+
+input.purposeField {
+  width: 300px;
+}
+
+.pass {
+  color: green;
+}
+.fail {
+  color: red;
+}
+.hidden {
+  display: none;
+}
+
+.mainArea {
+  margin-top: 50px;
+}

@@ -8,4 +8,6 @@ Bjcp::Application.routes.draw do
   # match 'quizzes/styleCode' => 'quizzes#style_code'
   # match 'quizzes/appearance' => 'quizzes#appearance'
   match 'quizzes' => 'quizzes#show'
+  match 'purpose' => 'quizzes#purpose'
+  match 'tf' => 'quizzes#tf'
 end

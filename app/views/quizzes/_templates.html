@@ -1,0 +1,178 @@
+<script type="text/x-handlebars" data-template-name="styleQuizTypes">
+<div class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    {{Quiz.MenuModel.displayType}}
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    {{#view Bjcp.QuizLink templateName="random" tagName="span" contentBinding="this"}}
+      <a class="quizLink" href="#">Random</a>
+    {{/view}}
+    {{#view Bjcp.QuizLink templateName="code" tagName="span" contentBinding="this"}}
+      <a class="quizLink" href="#">Style Code</a>
+    {{/view}}
+    {{#view Bjcp.QuizLink templateName="aroma" tagName="span" contentBinding="this"}}
+      <a class="quizLink" href="#">Aroma</a>
+    {{/view}}
+    {{#view Bjcp.QuizLink templateName="appearance" tagName="span" contentBinding="this"}}
+      <a class="quizLink" href="#">Appearance</a>
+    {{/view}}
+    {{#view Bjcp.QuizLink templateName="flavor" tagName="span" contentBinding="this"}}
+      <a class="quizLink" href="#">Flavor</a>
+    {{/view}}
+    {{#view Bjcp.QuizLink templateName="mouthfeel" tagName="span" contentBinding="this"}}
+      <a class="quizLink" href="#">Mouthfeel</a>
+    {{/view}}
+    {{#view Bjcp.QuizLink templateName="example" tagName="span" contentBinding="this"}}
+      <a class="quizLink" href="#">Example</a>
+    {{/view}}
+  </ul>
+</div>
+</script>
+
+
+<script type="text/x-handlebars" data-template-name="style-code-prompt">
+  Style {{question.correctAnswer.style_number}} is:
+</script>
+<script type="text/x-handlebars" data-template-name="style-code-feedback">
+  {{#if question.guessedCorrectly}}
+    <span><font color="green">Correct!
+      {{#view Bjcp.QuizLink tagName="span" contentBinding="this"}}
+        <a class="next" href="#">next question</a>
+      {{/view}}
+    </font></span>
+  {{/if}}
+  {{#if question.guessedIncorrectly}}
+    <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" is style '{{question.answerGuessed.style_number}}'.</font>
+  {{/if}}
+</script>
+<script type="text/x-handlebars" data-template-name="style-aroma-prompt">
+  "{{question.correctAnswer.aroma}}"
+  <br/>
+  This describes the aroma of which style?
+</script>
+<script type="text/x-handlebars" data-template-name="style-aroma-feedback">
+  {{#if question.guessedCorrectly}}
+    <span><font color="green">Correct!
+      {{#view Bjcp.QuizLink tagName="span" contentBinding="this"}}
+        <a class="next" href="#">next question</a>
+      {{/view}}
+    </font></span>
+  {{/if}}
+  {{#if question.guessedIncorrectly}}
+  <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the aroma of:
+    "{{question.answerGuessed.aroma}}"</font>
+  {{/if}}
+</script>
+<script type="text/x-handlebars" data-template-name="style-appearance-prompt">
+  "{{question.correctAnswer.appearance}}"
+  <br/>
+  This describes the appearance of which style?
+</script>
+<script type="text/x-handlebars" data-template-name="style-appearance-feedback">
+  {{#if question.guessedCorrectly}}
+    <span><font color="green">Correct!
+      {{#view Bjcp.QuizLink tagName="span" contentBinding="this"}}
+        <a class="next" href="#">next question</a>
+      {{/view}}
+    </font></span>
+  {{/if}}
+  {{#if question.guessedIncorrectly}}
+  <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the appearance of:
+    "{{question.answerGuessed.appearance}}"</font>
+  {{/if}}
+</script>
+<script type="text/x-handlebars" data-template-name="style-flavor-prompt">
+  "{{question.correctAnswer.flavor}}"
+  <br/>
+  This describes the flavor of which style?
+</script>
+<script type="text/x-handlebars" data-template-name="style-flavor-feedback">
+  {{#if question.guessedCorrectly}}
+    <span><font color="green">Correct!
+      {{#view Bjcp.QuizLink tagName="span" contentBinding="this"}}
+        <a class="next" href="#">next question</a>
+      {{/view}}
+    </font></span>
+  {{/if}}
+  {{#if question.guessedIncorrectly}}
+  <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the flavor of:
+    "{{question.answerGuessed.flavor}}"</font>
+  {{/if}}
+</script>
+<script type="text/x-handlebars" data-template-name="style-mouthfeel-prompt">
+  "{{question.correctAnswer.mouthfeel}}"
+  <br/>
+  This describes the mouthfeel of which style?
+</script>
+<script type="text/x-handlebars" data-template-name="style-mouthfeel-feedback">
+  {{#if question.guessedCorrectly}}
+    <span><font color="green">Correct!
+      {{#view Bjcp.QuizLink tagName="span" contentBinding="this"}}
+        <a class="next" href="#">next question</a>
+      {{/view}}
+    </font></span>
+  {{/if}}
+  {{#if question.guessedIncorrectly}}
+  <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the mouthfeel of:
+    "{{question.answerGuessed.mouthfeel}}"</font>
+  {{/if}}
+</script>
+<script type="text/x-handlebars" data-template-name="style-example-prompt">
+  The following example is of which style? {{question.correctAnswer.example}}
+</script>
+<script type="text/x-handlebars" data-template-name="style-example-feedback">
+  {{#if question.guessedCorrectly}}
+    <span><font color="green">Correct!
+      {{#view Bjcp.QuizLink tagName="span" contentBinding="this"}}
+        <a class="next" href="#">next question</a>
+      {{/view}}
+    </font></span>
+  {{/if}}
+  {{#if question.guessedIncorrectly}}
+    <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" is not correct.</font>
+  {{/if}}
+</script>
+
+
+
+
+
+<script type="text/x-handlebars" data-template-name="basicAnswers">
+  {{#with question}}
+    <ul class='nav nav-tabs nav-stacked'>{{#each answers}}
+      {{#view this contentBinding="this" tagName="li"}}
+        <a href="#">{{style_name}}</a>
+      {{/view}}
+    {{/each}}</ul>
+  {{/with}}
+</script>
+<script type="text/x-handlebars" data-template-name="style-overview">
+<div class="well">
+{{#with style}}
+  <h2>{{style_number}} {{style_name}}</h2>
+  <h3>Appearance</h3>
+  {{appearance}}
+  <h3>Aroma</h3>
+  {{aroma}}
+  <h3>Flavor</h3>
+  {{flavor}}
+  <h3>Mouthfeel</h3>
+  {{mouthfeel}}
+  <h3>Overall Impression</h3>
+  {{impression}}
+  <h3>Comments</h3>
+  {{comments}}
+  <h3>History</h3>
+  {{history}}
+  <h3>Stats</h3>
+  <div>OG: {{og_low}}-{{og_high}}</div>
+  <div>FG: {{fg_low}}-{{fg_high}}</div>
+  <div>IBU: {{ibu_low}}-{{ibu_high}}</div>
+  <div>SRM: {{srm_low}}-{{srm_high}}</div>
+  <div>ABV: {{abv_low}}-{{abv_high}}</div>
+  <h3>Commercial Examples</h3>
+  {{examples}}
+{{/with}}
+</div>
+</script>

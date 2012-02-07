@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+%html
+%head
+  %title Bjcp
+  = stylesheet_link_tag    "application"
+  = javascript_include_tag "application"
+  %script{:src=>"/javascripts/ember.js", :type=>"text/javascript"}
+  %script{:src=>"/javascripts/bootstrap.min.js", :type=>"text/javascript"}
+  = csrf_meta_tags
+%body
+  .navbar.navbar-fixed-top
+    .navbar-inner
+      .container
+        =#%a.brand{:href=>"#"} BJCP
+        .nav-collapse
+          %ul.nav
+            = main_menu_link "Style Quizzes", quizzes_path
+            = main_menu_link "BJCP Purposes", '/purpose.html'
+            = main_menu_link "Judging Procedures", '/tf.html'
+            = main_menu_link "Style Comparisons", style_comparisons_random_path
+
+  .container.mainArea
+    = yield

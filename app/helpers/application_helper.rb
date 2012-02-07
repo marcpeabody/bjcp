@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+  def main_menu_link(name, path)
+    raw "<li #{'class="active"' if request.path == path}>#{link_to name, path}</li>"
+  end
+
   SRM_COLORS = { 0 => '#FFFFFF',
                  1 => '#F3F993', 2 => '#F5F75C', 3 => '#F6F513', 4 => '#EAE615', 5 => '#E0D01B',
                  6 => '#D5BC26', 7 => '#CDAA37', 8 => '#C1963C', 9 => '#BE8C3A', 10 => '#BE823A',

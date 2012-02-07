@@ -3,39 +3,37 @@ jQuery(document).ready(function($){
   window.mainView = undefined;
   window.Quiz = Ember.Application.create();
 
-  Quiz.QuizLink = Ember.View.extend({
-    click: function(e){
-      e.preventDefault();
-      var template = this.get('templateName');
-      if(template){
-        Quiz.MenuModel.set('selectedType', template);
-        Quiz.Question.redisplay();
-      }else{
-        Quiz.Question.setup();
-      }
-    }
-  });
-
   Quiz.MenuModel = Ember.Object.create({
-    selectedType: undefined,
-    allTemplates: ['style-code-prompt', 'style-aroma-prompt',
-                   'style-appearance-prompt', 'style-flavor-prompt',
-                   'style-mouthfeel-prompt', 'style-example-prompt'],
+    selectedType: 'random',
+    allTemplates: {'code': 'Code',
+                   'aroma': 'Aroma',
+                   'appearance': 'Appearance',
+                   'flavor': 'Flavor',
+                   'mouthfeel': 'Mouthfeel',
+                   'example': 'Example'},
+    style: function(){
+      var selectedType = this.get('selectedType');
+      var isRandom = (selectedType === 'random');
+      if(isRandom)
+        return _.sample(keys(this.get('allTemplates')));
+      else
+        return this.get('selectedType') || 'code';
+    }.property('selectedType'),
     promptTemplate: function(){
-      var self = this;
-      var activeTemplate = self.get('selectedType') || 'code';
-      if(activeTemplate === 'random'){
-        return _.sample(self.get('allTemplates'));
-      }else{
-        return 'style-'+activeTemplate+'-prompt';
-      }
+      return 'style-'+this.get('style')+'-prompt';
+    }.property('style'),
+    feedbackTemplate: function(){
+      return 'style-'+this.get('style')+'-feedback';
+    }.property('style'),
+    displayType: function(){
+      return this.get('allTemplates')[this.get('selectedType')] || 'Random';
     }.property('selectedType')
   });
 
   Quiz.Question = Ember.Object.create({
     promptView: Ember.View.extend(),
+    feedbackView: Ember.View.extend(),
     answersView: Ember.View.extend({templateName: 'basicAnswers'}),
-    activeQuestionType: Quiz.StyleCodeQuestionLink,
     answers: [],
     answerGuessed: undefined,
     correctAnswer: undefined,
@@ -51,12 +49,13 @@ jQuery(document).ready(function($){
       this.set('correctAnswer', undefined);
       this.set('answerGuessed', undefined);
       this.set('answers', []);
-      //this.set('prompt', 'loading question...');
     },
     redisplay: function() {
       var self = this;
       var promptTemplate = Quiz.MenuModel.get('promptTemplate');
+      var feedbackTemplate = Quiz.MenuModel.get('feedbackTemplate');
       self.set('promptView', Ember.View.extend({templateName: promptTemplate}));
+      self.set('feedbackView', Ember.View.extend({templateName: feedbackTemplate}));
       if(!self.get('answersTemplate')) self.set('answersTemplate','basicAnswers');// default
       self.set('answersView', Ember.View.extend({templateName: self.get('answersTemplate')}));
       window.setMainView('multi-choice-quiz');
@@ -65,7 +64,8 @@ jQuery(document).ready(function($){
       var self = this;
       self.clear();
       self.redisplay();
-      runWithSampleStyles(4, function(stylesChosen){
+      runWithSampleStyles(5, function(stylesChosen){
+        stylesChosen = _.sortBy(stylesChosen, function(x){ return x['style_name']; });
         var correctAnswer  = _.sample(stylesChosen);
         correctAnswer['isCorrect'] = true;
         self.set('correctAnswer', correctAnswer);
@@ -79,29 +79,37 @@ jQuery(document).ready(function($){
       return Ember.View.extend(x);
     }
   });
-  Ember.View.create({templateName: 'quiz-menu'}).append();
+
   Quiz.Question.setup();
 });
 </script>
 <style>
   .correct{ color: green; }
 </style>
-<%= render :partial => 'menu' %>
-<%= render :partial => 'prompts' %>
+<%= render :partial => 'templates' %>
 <script type="text/x-handlebars" data-template-name="multi-choice-quiz">
   <div class='question'>
     {{#with Quiz.Question}}
+      <table>
+        <tr>
+          <td colspan="2">
+      {{view templateName="styleQuizTypes"}}
       {{view promptView  questionBinding="this"}}
+          </td>
+        </tr>
+        <tr>
+          <td style="vertical-align: top;">
       {{view answersView questionBinding="this"}}
+          </td>
+          <td style="vertical-align: top;">
+            <div style="padding-left: 10px; border: 1px">
+              {{view feedbackView  questionBinding="this"}}
+              {{#if answerGuessed}}
+                {{view templateName="style-overview" styleBinding="answerGuessed"}}
+              {{/if}}
+            </div>
+          </td>
+        </tr>
     {{/with}}
   </div>
-</script>
-<script type="text/x-handlebars" data-template-name="basicAnswers">
-  {{#with question}}
-    <ul class='multiple-choice'>{{#each answers}}
-      {{#view this contentBinding="this"}}
-        <li>{{style_name}}</li>
-      {{/view}}
-    {{/each}}</ul>
-  {{/with}}
 </script>

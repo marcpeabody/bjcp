@@ -23,11 +23,34 @@ $(function(){
   window.setMainView = function(templateName){
     if(window.mainView) window.mainView.remove();
     window.mainView = Ember.View.create({templateName: templateName});
-    window.mainView.append();
+    append(window.mainView);
   };
 
   window.runWithSampleStyles = function(limit, callback){
     $.ajax({url: '/styles/styles', data: {limit: limit}, success: callback});
   };
 
+  window.Bjcp = {};
+  Bjcp.QuizLink = Ember.View.extend({
+    click: function(e){
+      e.preventDefault();
+      var template = this.get('templateName');
+      if(template){
+        Quiz.MenuModel.set('selectedType', template);
+        Quiz.Question.redisplay();
+      }else{
+        Quiz.Question.setup();
+      }
+    }
+  });
+
+  window.keys = function(obj){
+    var keys = [];
+    for(var key in obj) keys.push(key);
+    return keys;
+  }
+
+  window.append = function(emberView){
+    emberView.appendTo('.mainArea');
+  }
 });
