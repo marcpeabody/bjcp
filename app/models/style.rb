@@ -1,8 +1,10 @@
 class Style < ActiveRecord::Base
 
+  default_scope :order => 'position'
+
   def self.sample(n)
     # RANDOM() assumes postgres, otherwise, try RAND()
-    Style.where(:on_exam => true).all(:limit => n, :order => 'RANDOM()')
+    Style.unscoped.where(:on_exam => true).all(:limit => n, :order => 'RANDOM()')
   end
 
   %w{og fg ibu srm abv}.each do |v|

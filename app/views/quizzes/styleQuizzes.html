@@ -94,7 +94,7 @@ jQuery(document).ready(function($){
         <tr>
           <td colspan="2">
       {{view templateName="styleQuizTypes"}}
-      {{view promptView  questionBinding="this"}}
+      {{view promptView questionBinding="this"}}
           </td>
         </tr>
         <tr>
@@ -102,7 +102,7 @@ jQuery(document).ready(function($){
       {{view answersView questionBinding="this"}}
           </td>
           <td style="vertical-align: top;">
-            <div style="padding-left: 10px; border: 1px">
+            <div style="padding-left: 10px">
               {{view feedbackView  questionBinding="this"}}
               {{#if answerGuessed}}
                 {{view templateName="style-overview" styleBinding="answerGuessed"}}

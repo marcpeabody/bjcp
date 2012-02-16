@@ -1,0 +1,175 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  BJCP.Questions = Ember.Object.create({
+    purposes: [],
+    questions: [],
+    judgeLevels: [],
+    numberCorrect: function(){
+      return this.get('questions').filter(function(item, index, self){
+        return item.get('correct');
+      }).length;
+    }.property(),
+    points: function(){
+      var correct = parseInt(this.get('numberCorrect') || 0);
+      var points = parseInt(correct / 3);
+      var fractionPoints = correct % 3;
+      var points = (points ? String(points) : '');
+      if(fractionPoints === 0){
+        fractionPoints = '';
+      }else{
+        fractionPoints = ' '+fractionPoints+'/3';
+      }
+      return points + fractionPoints;
+    }.property('numberCorrect'),
+    setup: function(){
+      var self = this;
+      $.ajax({url: '/judge_procedure/sample', data: {limit: 15}, success: function(data){
+        self.set('questions', _.map(data, function(x){
+          return Ember.Object.create(x);
+        }));
+      }});
+      $.ajax({url: '/judge_levels/all_levels', data: {}, success: function(data){
+        self.set('judgeLevels', _.map(data, function(x){
+          return Ember.Object.create(x);
+        }));
+      }});
+      var purposes = [{number: 1, purpose: 'Promote Beer Literacy'},
+                      {number: 2, purpose: 'Promote the Appreciation of Real Beer'},
+                      {number: 3, purpose: 'Recognize Beer Tasting and Evaluation Skill'}];
+      self.set('purposes', _.map(purposes, function(x){
+        return Ember.Object.create(x);
+      }));
+    }
+  });
+
+  BJCP.Questions.setup();
+
+  BJCP.Form = Ember.View.extend({
+    submit: function(e){
+      e.preventDefault();
+    }
+  });
+
+  Ember.View.create({templateName: 'purpose-quiz'}).appendTo('.q1');
+  Ember.View.create({templateName: 'judge-levels-quiz'}).appendTo('.q1');
+  Ember.View.create({templateName: 'tf-quiz'}).appendTo('.q1');
+
+  $('.judgingTFQuiz').live('click', function(e){
+    e.preventDefault();
+    getJudgingTFQuiz();
+  });
+
+  $('.tfQuestionsForm').live('submit', function(e){
+    e.preventDefault();
+    var numberCorrect = 0;
+    $(this).find('li').each(function(){
+      var selectedVal   = $(this).find(':checked').val();
+      var actualVal     = $(this).find('.answer').html();
+      var $questionText = $(this).find('.questionText');
+      if(selectedVal === actualVal){
+        numberCorrect += 1;
+        $questionText.css('color', 'green');
+      }else{
+        $questionText.css('color', 'red');
+      }
+    });
+    updateStatus(numberCorrect);
+  });
+
+  var updateStatus = function(numberCorrect){
+    var status = "You got "+numberCorrect+" out of 15 answers correct. ";
+    var points = (Math.floor(numberCorrect/3)||'').toString();
+    var remainder = numberCorrect % 3;
+    if(remainder) points += " <sup>"+remainder+"</sup>&frasl;<sub>3</sub>";
+    status += "You get "+points+" out of 5 possible points for this section.";
+    $('.status').html(status);
+  };
+
+  var getJudgingTFQuiz = function(){
+    var optionCount = 15;
+    var judgingTF = {};
+    var randomQuestions = _.sample(judgingTF, optionCount);
+    var $quiz = $(Mustache.to_html(quizTemplate, {questions : randomQuestions}));
+    $('.content').html($quiz);
+  };
+
+  BJCP.TrueFalse = Ember.View.extend({
+    click: function(){
+      var $li = this.$().parent('li');
+      console.log($li)
+      $li.addClass('active');
+      $li.siblings().removeClass('active');
+    }
+  });
+});
+</script>
+<style>
+.point{
+  cursor: pointer;
+}
+.hidden{
+  display:none;
+}
+</style>
+<script type="text/x-handlebars" data-template-name="purpose-quiz">
+  List three primary purposes of the BJCP as listed on
+  <a href="http://www.bjcp.org" target="_blank">http://www.bjcp.org</a>
+  and in the <a href="http://www.bjcp.org/study.php" target="_blank">
+    BJCP Study Guide</a>.
+<table>
+  {{#each BJCP.Questions.purposes}}
+  <tr><td>{{number}}) <input class="purpose purpose{{number}}"type="text"/>
+      <span class="answer hidden">{{purpose}}</span>
+  </td></tr>
+  {{/each}}
+</table>
+</script>
+<script type="text/x-handlebars" data-template-name="judge-levels-quiz">
+<table>
+  <tr>
+    <th>BJCP Level</th>
+    <th style="width: 82px">Minimum Exam Score</th>
+    <th style="width: 82px">Total Experience Points</th>
+    <th style="width: 82px">Minimum Judging Points</th>
+    <th style="width: 82px">GM Service Requirements</th>
+  </tr>
+  {{#each BJCP.Questions.judgeLevels}}
+  <tr>
+    <td><input type="text" style="width: 150px"/></td>
+    <td><input type="text" style="width: 80px"/></td>
+    <td><input type="text" style="width: 80px"/></td>
+    <td><input type="text" style="width: 80px"/></td>
+    <td nowrap>
+      <ul class="nav nav-pills" style="display: inline">
+        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}Yes{{/view}}</li>
+        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}No{{/view}}</li>
+      </ul>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+</script>
+<script type="text/x-handlebars" data-template-name="tf-quiz">
+<div class='question'>
+  <span class='status'></span>
+  <form class='tfQuestionsForm'>
+{{BJCP.Questions.numberCorrect}}
+{{BJCP.Questions.points}}
+<table>
+    {{#each BJCP.Questions.questions}}
+  <tr>
+    <td nowrap>
+      <ul class="nav nav-pills" style="display: inline">
+        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}True{{/view}}</li>
+        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}False{{/view}}</li>
+      </ul>
+    </td>
+    <td>
+      <span class='answer hidden'>{{answer}}</span>
+      <span class='questionText'>{{question}}</span>
+    </td>
+  </tr>
+    {{/each}}
+</table>
+</div>
+</script>

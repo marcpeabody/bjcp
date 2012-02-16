@@ -1,0 +1,72 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  var paginationView = Ember.View.extend({templateName: 'pagination'});
+  paginationView.create().appendTo('.paginationHeader');
+  paginationView.create().appendTo('.paginationFooter');
+
+  BJCP.SampleQuiz = Ember.Object.create({
+    showingAnswers: false,
+    activePage: undefined
+  });
+
+  BJCP.ShowAnswers = Ember.View.extend({
+    click: function(){
+      $('.answers').show();
+      BJCP.SampleQuiz.set('showingAnswers', true);
+    }
+  });
+  BJCP.HideAnswers = Ember.View.extend({
+    click: function(){
+      BJCP.SampleQuiz.set('showingAnswers', false);
+    }
+  });
+  $('.pageOption').live('click', function(e){
+    e.preventDefault();
+    if($(this).hasClass('active')) return;
+    var page = parseInt($(this).attr('data-page'));
+    $('.questionPage').hide().filter('.q'+page).show();
+    $('.pageOption.next').attr('data-page', page+1);
+    $('.pageOption').removeClass('active').filter('[data-page='+page+']').addClass('active');
+    if(page === 10) $('.pageOption.next').hide();
+    else $('.pageOption.next').show();
+
+    if(page === 0) $('.showHideAnswers').hide();
+    else $('.showHideAnswers').show();
+
+    if(BJCP.SampleQuiz.get('showingAnswers')) $('.answers').show();
+    else $('.answers').hide();
+  });
+  var StyleCompareClass = Ember.Object.extend({styles: []});
+  BJCP.StyleCompare1 = StyleCompareClass.create();
+  BJCP.StyleCompare2 = StyleCompareClass.create();
+  BJCP.StyleCompare3 = StyleCompareClass.create();
+
+  $.ajax({url: '/style_comparisons/for_exam',
+          data: {limit: 3},
+          success: function(data){
+    BJCP.StyleCompare1.set('styles', data[0]);
+    BJCP.StyleCompare2.set('styles', data[1]);
+    BJCP.StyleCompare3.set('styles', data[2]);
+  }});
+  $('.pageOption[data-page="2"]').first().trigger('click');
+  console.log($('.pageOption[data-page="2"]'))
+  Ember.View.create({templateName: 'style-comparison'}).appendTo('.quizContent');
+});
+</script>
+<style>
+.questionPage {
+  display: none;
+}
+</style>
+<div class="paginationHeader"></div>
+<div class="quizContent">
+  <div class="questionPage q0"><%= render 'intro' %></div>
+  <div class="questionPage q1"><%= render 'q1' %></div>
+  <div class="questionPage q10"><%= render 'q10' %></div>
+</div>
+<div class="paginationFooter"></div>
+<%= render 'pagination' %>
+
+<div class="questionPage q2"><%= render 'qCompare' %></div>
+<div class="questionPage q4"><%= render 'qCompare' %></div>
+<div class="questionPage q8"><%= render 'qCompare' %></div>

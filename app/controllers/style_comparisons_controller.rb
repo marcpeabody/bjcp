@@ -10,6 +10,11 @@ class StyleComparisonsController < ApplicationController
     @style_comparison = StyleComparison.first(:offset => @style_comparison_index)
   end
 
+  def for_exam
+    count = (params[:limit] || 1).to_i
+    render :json => StyleComparison.sample(count, params[:exclude]).map(&:styles).to_json
+  end
+
   private
   def random_index
     rand(@style_comparison_count)

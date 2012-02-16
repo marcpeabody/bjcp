@@ -4,8 +4,10 @@
   %title Bjcp
   = stylesheet_link_tag    "application"
   = javascript_include_tag "application"
+  %script{:src=>"/javascripts/jquery.sizes.min.js", :type=>"text/javascript"}
   %script{:src=>"/javascripts/ember.js", :type=>"text/javascript"}
   %script{:src=>"/javascripts/bootstrap.min.js", :type=>"text/javascript"}
+  %script{:src=>"/javascripts/bootstrap-typeahead.js", :type=>"text/javascript"}
   = csrf_meta_tags
 %body
   .navbar.navbar-fixed-top
@@ -21,3 +23,4 @@
 
   .container.mainArea
     = yield
+  = render 'shared/sharedTemplates'

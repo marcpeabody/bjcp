@@ -2,6 +2,11 @@ class JudgeProcedureController < ApplicationController
   def all_questions
     render :json => TF_QUESTIONS
   end
+
+  def sample
+    render :json => TF_QUESTIONS.sample(params[:limit].to_i)
+  end
+
 TF_QUESTIONS = [
 {:number=>1, :answer=>'T', :question=>'A competition organizer may serve as the judge director and may also serve as a judge, provided this person has no knowledge of the association between entries and entrants. (Note: The competition organizer may NOT receive judging experience points if they serve as judge.)'},
 {:number=>2, :answer=>'T', :question=>'A judge director may serve as a judge, provided this person has no knowledge of the association between entries and entrants.'},

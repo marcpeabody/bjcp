@@ -1,0 +1,128 @@
+<script type="text/x-handlebars" data-template-name="style-comparison">
+{{#with BJCP.StyleCompare1}}
+<div>
+<table class="table table-bordered">
+  <tr>
+    <td>6 points</td>
+    <td>Describe the aroma, appearance, flavor, and mouthfeel of each sub-style as in the BJCP Style Guidelines.</td>
+  </tr>
+  <tr>
+    <td>2 points</td>
+    <td>Identify at least one aspect of the ingredients (malts, hops, water chemistry) or background information (history, fermentation techniques and conditions, or serving methods) that distinguishes each sub-style.</td>
+  </tr>
+  <tr>
+    <td>1 point</td>
+    <td>For each of the sub-styles, name at least one classic commercial example as listed in the BJCP Style Guidelines.</td>
+  </tr>
+  <tr>
+    <td>1 point</td>
+    <td>Describe the similarities and differences between the three sub-styles.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGrid">
+  <tr>
+    <td></td>
+    {{#each styles}}
+    <td style="text-align: center"><strong>{{style_name}}</strong></td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">AROMA</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      <div class="answers">
+        {{aroma}}
+      </div>
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">APPEARANCE</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      <div class="answers">
+        {{appearance}}
+      </div>
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">FLAVOR</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      <div class="answers">
+        {{flavor}}
+      </div>
+    </td>
+    {{/each}}
+  </tr>
+  <tr class="answers">
+    <td class="gridRowLabel">MOUTHFEEL</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      <div class="answers"
+        {{mouthfeel}}
+      </div>
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DISTINGUISH</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      <div class="answers">
+        <strong>Ingredients:</strong> {{ingredients}}
+        <br/>
+        <strong>History:</strong> {{history}}
+      </div>
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CLASSIC EXAMPLE</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      <div class="answers">
+        {{examples}}
+      </div>
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">SIMILARITIES</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DIFFERENCES</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+    </td>
+    {{/each}}
+  </tr>
+  <tr class="answers">
+    <td>other info for reference</td>
+    {{#each styles}}
+    <td>
+      <strong>Impression:</strong> {{impression}}<br/>
+      <strong>Comments:</strong> {{comments}}<br/>
+      <strong>OG Range:</strong> {{og_low}}-{{og_high}}<br/>
+      <strong>FG Range:</strong> {{fg_low}}-{{fg_high}}<br/>
+      <strong>IBU:</strong> {{ibu_low}}-{{ibu_high}}<br/>
+    </td>
+    {{/each}}
+  </tr>
+</table>
+{{/with}}
+</script>

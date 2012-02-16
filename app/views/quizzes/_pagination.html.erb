@@ -1,0 +1,32 @@
+<script type="text/x-handlebars" data-template-name="pagination">
+<div class="pagination">
+<table>
+  <tr>
+    <td>
+  <ul>
+    <li class="active pageOption" data-page="0"><a href="#">Intro</a></li>
+    <% (1..10).each do |i| %>
+      <li class="pageOption" data-page="<%= i %>">
+        <a href="#"><%= i %></a>
+      </li>
+    <% end %>
+    <li class="pageOption next" data-page="1"><a href="#">Next</a></li>
+  </ul>
+    </td>
+    <td>
+      <div class="showHideAnswers" style="display: none">
+        {{#if BJCP.SampleQuiz.showingAnswers}}
+          {{#view BJCP.HideAnswers classBinding="btn" tagName="button"}}
+            <i class="icon-remove-sign"></i> Hide Answers
+          {{/view}}
+        {{else}}
+          {{#view BJCP.ShowAnswers classBinding="btn" tagName="button"}}
+            <i class="icon-ok-sign"></i> Show Answers
+          {{/view}}
+        {{/if}}
+      </div>
+    </td>
+  </tr>
+</table>
+</div>
+</script>

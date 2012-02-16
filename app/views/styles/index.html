@@ -1,0 +1,112 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  var resizeHeight = function(){
+    _.each($('.fillContentHeight'), function(resizable){
+      var padTop = $(resizable).padding().top;
+      var padBot = $(resizable).padding().bottom;
+      var heightPad = padTop+padBot;
+      $(resizable).height(($(window).height()-68-heightPad)+'px');
+    });
+  };
+  var recenterIfNeeded = function(selectMe){
+    var scrollTop = $('.styleNav').scrollTop();
+    var navHeight = $('.styleNav').height();
+    var scrollBottom = scrollTop + navHeight;
+    var navTop = $('.styleNav').position().top;
+    var ul = selectMe.parents('ul');
+    var selectedRelULTop = ul.position().top - navTop;
+    var selectedRelULBottom = ul.height() + selectedRelULTop;
+    var offBottom = selectedRelULBottom > navHeight;
+    var offTop = selectedRelULTop < 0;
+    if(offBottom || offTop)
+      $('.styleNav').scrollTop(scrollTop + selectedRelULTop + (ul.height()/2) - (navHeight/2));
+  };
+  $(window).resize(resizeHeight);
+  $('.styleNav').focus(function(){
+    console.log('focus')
+  });
+
+  $(document).keydown(function(e){
+    switch(e.which){
+      case 37: //left
+        // select left area
+        break;
+      case 39: //right
+        // select right area
+        break;
+      case 38: //up
+        e.preventDefault();
+        var i = $('.styleNav li').index($('li.selected'))-1;
+        $('.styleNav li').eq(i).trigger('click');
+        break;
+      case 40: //down
+        e.preventDefault();
+        var i = $('.styleNav li').index($('li.selected'))+1;
+        if(i >= $('.styleNav li').length) i=0;
+        $('.styleNav li').eq(i).trigger('click');
+        break;
+    }
+  });
+  $('.styleNav ul li').live('mouseenter', function(x){
+    $(this).addClass('hover');
+  }).live('mouseleave', function(x){
+    $(this).removeClass('hover');
+  });
+  BJCP.index = Ember.Object.create({
+    styles: undefined,
+    styleSelected: undefined
+  });
+  runWithSampleStyles(function(styles){
+    var groupedStyles = _.groupBy(styles, function(style){
+      return style.category_number;
+    });
+    var styles = _.map(groupedStyles, function(group){
+      return _.map(group, function(x){
+        x['click'] = function(){
+          $('.styleNav li').removeClass('selected');
+          $('.styleNav ul').removeClass('selected');
+          this.$('li').addClass('selected');
+          this.$('li').parents('ul').addClass('selected');
+          recenterIfNeeded(this.$('li'));
+          $('#styleOverview').show();
+          BJCP.index.set('styleSelected', this);
+        };
+        return Ember.View.extend(x);
+      });
+    });
+    BJCP.index.set('styles', styles);
+    resizeHeight();
+  });
+  append(Ember.View.create({templateName: 'allStyles'}));
+});
+</script>
+<style>
+body {overflow: hidden};
+</style>
+<script type="text/x-handlebars" data-template-name="allStyles">
+  {{#with BJCP.index}}
+    <table class="toppers"><tr><td>
+    <div class="styleNav fillContentHeight">
+      {{#each styles}}
+      <ul class="plain">
+        {{#each this}}
+          {{#view this}}
+            <li {{bindAttr class="last"}} style="cursor: pointer;">
+              <a href="#" style="text-decoration:none">{{style_number}} {{style_name}}</a>
+            </li>
+          {{/view}}
+        {{/each}}
+      </ul>
+      {{/each}}
+    </div>
+    </td><td>
+    <div id="styleOverview" style="overflow: auto; display:none" class="fillContentHeight well">
+      <div style="padding-left: 10px; border: 1px">
+        {{#if styleSelected}}
+          {{view templateName="style-overview" styleBinding="styleSelected"}}
+        {{/if}}
+      </div>
+    </div>
+    </td></tr></table>
+  {{/with}}
+</script>

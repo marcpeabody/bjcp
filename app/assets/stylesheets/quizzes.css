@@ -2,6 +2,20 @@ ul.multiple-choice li {
   cursor: pointer;
 }
 
+ul.plain {
+  list-style: none;
+}
+
+ul.plain li {
+  line-height: 1em;
+  padding-bottom: 2px;
+}
+ul.plain li.last {
+  border-bottom: 1px solid #BBBBBB;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
 input.purposeField {
   width: 300px;
 }
@@ -18,4 +32,47 @@ input.purposeField {
 
 .mainArea {
   margin-top: 50px;
+}
+
+.styleNav {
+  width: 300px;
+  overflow: auto;
+  border: 1px solid #666;
+  background-color: #ccc;
+}
+
+table.toppers td {
+  vertical-align: top;
+}
+.styleNav ul {
+  margin: 0 0 0 0;
+  padding: 4px 0 4px 4px;
+  border-bottom: 1px solid #888
+}
+.styleNav ul.hover, ul.selected{
+  background-color: #EEE;
+}
+li.hover a, li.hover a:hover,
+li.selected a, li.selected a:hover {
+  color: #000;
+}
+a {
+  color: #666;
+}
+
+table.styleCompareGrid td {
+  vertical-align: top;
+}
+table.styleCompareGrid textarea {
+  height: 80px;
+  width: 280px;
+}
+
+table td.gridRowLabel {
+  font-weight: bold;
+  padding-top: 40px;
+}
+
+.answers {
+  display: none;
 }

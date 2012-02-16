@@ -1,4 +1,8 @@
 class QuizzesController < ApplicationController
+  def takeSampleExam
+    render 'quizzes/bjcpQuiz.html'
+  end
+
   def show
     render 'quizzes/styleQuizzes'
   end

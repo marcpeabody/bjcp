@@ -2,8 +2,6 @@
   - i += 1
   %span{:style => "#{'background-color: blue;' if i == @style_comparison_index}"}= i
 %div{:style => 'text-align: center;'}
-  %b Notes:
-  = text_area :style_comparison, :notes, :cols => 100, :rows => 2
 - @style_comparison.styles.each_with_index do |style,index|
   - width = 300
   .sideBySideColumn{:style => "width: #{width}px; padding: 10px 10px 10px; display: block; position: absolute; left:#{(index*width)+50}px;"}
@@ -23,3 +21,5 @@
     .abv_range= with_header style, :abv_range, "ABV"
     .examples= with_header style, :examples, "Commercial Examples"
     %div
+
+
