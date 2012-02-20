@@ -1,6 +1,8 @@
 Bjcp::Application.routes.draw do
   root :to => 'styles#index'
   match 'styles/all' => 'styles#all_styles'
+  match 'styles/all_names' => 'styles#all_names'
+  match 'styles/styles_with_city' => 'styles#styles_with_city'
   match 'styles/styles' => 'styles#styles'
   match 'styles/show' => 'styles#show'
   match 'style_comparisons/random' => 'style_comparisons#random'

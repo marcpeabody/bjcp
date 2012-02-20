@@ -17,6 +17,15 @@ class StylesController < ApplicationController
     render :json => styles.to_json
   end
 
+  def styles_with_city
+    styles = Style.with_cities
+    render :json => styles.to_json
+  end
+
+  def all_names
+    render :json => Style.all_names.to_json
+  end
+
   def show
   end
 end

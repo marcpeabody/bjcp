@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120216221242) do
+ActiveRecord::Schema.define(:version => 20120217153746) do
 
   create_table "characteristics", :force => true do |t|
     t.string "name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20120216221242) do
     t.string  "abv_high"
     t.boolean "on_exam",         :default => true
     t.integer "position"
+    t.string  "city"
   end
 
   add_index "styles", ["on_exam"], :name => "index_styles_on_on_exam"

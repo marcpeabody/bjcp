@@ -67,10 +67,13 @@ table.styleCompareGrid textarea {
   height: 80px;
   width: 280px;
 }
+table.styleCompareGrid input {
+  width: 280px;
+}
 
 table td.gridRowLabel {
   font-weight: bold;
-  padding-top: 40px;
+  vertical-align:middle;
 }
 
 .answers {

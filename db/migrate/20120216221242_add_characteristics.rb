@@ -91,7 +91,32 @@ CHARACTERISTICS = [["Acetaldehyde",["Green apples","Grassy"],"Light American Lag
  ["Sourness", ["Tart","Sour","Aroma","Flavor","Mouthfeel"],
    "Lambics, Flanders Ale, Berliner Weisse",
    ["Lactic Acid (from lactic acid bacteria)", "Acetobacter (from Acetic acid)"],
-   ["Practice proper sanitation", "Don't employ overlengthy mash or low temp mash"]]]
+   ["Practice proper sanitation", "Don't employ overlengthy mash or low temp mash"]],
+
+ ["Good Head Retention",[""],
+   "",
+   [],
+   [], 2],
+   
+ ["Clarity in a Beer",[""],
+  "",
+  [],
+  [], 2],
+
+ ["A Proper Diactyl Level for Style"],[""],
+  "",
+  [],
+  [], 2]]
+#T3
+ ["Body",[""],
+  "",
+  [],
+  [], 3],
+
+ ["Mouthfeel",[""],
+  "",
+  [],
+  [], 3],
 end
 
 

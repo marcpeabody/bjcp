@@ -1,8 +1,31 @@
 <script type="text/javascript">
 jQuery(document).ready(function($){
+
   var paginationView = Ember.View.extend({templateName: 'pagination'});
   paginationView.create().appendTo('.paginationHeader');
   paginationView.create().appendTo('.paginationFooter');
+  $('.questionPage:first').show();
+
+  BJCP.ClickableView = Ember.View.extend({
+    change: function(evt) {
+      var i = $('.allStylesAhead').index($(evt.target));
+      var citiesWithStyles = BJCP.StyleCompareCities.get('cities');
+      var styles = citiesWithStyles[i].get('optionalStyles');
+      var enteredVal = $(evt.target).val();
+
+      var match = _.find(styles, function(style){
+        return style.style_name === enteredVal;
+      });
+      citiesWithStyles[i].set('selectedStyle', match);
+      var selectedStyles = BJCP.StyleCompareCities.get('styles');
+      selectedStyles[i] = Ember.Object.create(match || {});
+      selectedStyles = _.map(selectedStyles, function(x){return x;}); // clone, otherwise Ember ignores change
+      BJCP.StyleCompareCities.set('styles', selectedStyles);
+
+      // TODO answers auto-hide on the re-rendering of the template
+      //      need to make Ember be the one to hide/show answers, not jquery/css
+    }
+  });
 
   BJCP.SampleQuiz = Ember.Object.create({
     showingAnswers: false,
@@ -35,22 +58,60 @@ jQuery(document).ready(function($){
 
     if(BJCP.SampleQuiz.get('showingAnswers')) $('.answers').show();
     else $('.answers').hide();
+    autoStyleFill();
   });
-  var StyleCompareClass = Ember.Object.extend({styles: []});
+  var StyleCompareClass = Ember.Object.extend();
   BJCP.StyleCompare1 = StyleCompareClass.create();
   BJCP.StyleCompare2 = StyleCompareClass.create();
   BJCP.StyleCompare3 = StyleCompareClass.create();
+  BJCP.StyleCompareCities = StyleCompareClass.create({
+    isCities: true,
+    cities: [],
+    styles: []
+  });
 
   $.ajax({url: '/style_comparisons/for_exam',
           data: {limit: 3},
           success: function(data){
+    console.log(data)
     BJCP.StyleCompare1.set('styles', data[0]);
     BJCP.StyleCompare2.set('styles', data[1]);
     BJCP.StyleCompare3.set('styles', data[2]);
   }});
+  $.ajax({url: '/styles/styles_with_city',
+          data: {},
+          success: function(data){
+
+    BJCP.StyleCompareCities.set('cities', _.map(data,
+      function(styles,city){
+        return Ember.Object.create({city: city,
+          optionalStyles: styles
+          });
+      }));
+
+    BJCP.StyleCompareCities.set('styles', [Ember.Object.create({aroma: 'x'}),
+        Ember.Object.create({aroma: "starter"}),
+          Ember.Object.create({aroma: 'e'})]);
+  }});
   $('.pageOption[data-page="2"]').first().trigger('click');
-  console.log($('.pageOption[data-page="2"]'))
-  Ember.View.create({templateName: 'style-comparison'}).appendTo('.quizContent');
+//  Ember.View.create({templateName: 'style-comparison'}).appendTo('.quizContent');
+  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompare1}).appendTo('.q2');
+  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompare2}).appendTo('.q4');
+  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompareCities}).appendTo('.q6');
+  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompare3}).appendTo('.q8');
+
+  BJCP.AllStyleNames = Ember.Object.create({names: []});
+  $.ajax({url: '/styles/all_names',
+          data: {},
+          success: function(data){
+    BJCP.AllStyleNames.set('names', data);
+    autoStyleFill();
+  }});
+
+  var autoStyleFill = function(){
+    $('.allStylesAhead').typeahead({source: BJCP.AllStyleNames.get('names')});
+  };
+
 });
 </script>
 <style>
@@ -62,11 +123,16 @@ jQuery(document).ready(function($){
 <div class="quizContent">
   <div class="questionPage q0"><%= render 'intro' %></div>
   <div class="questionPage q1"><%= render 'q1' %></div>
+  <div class="questionPage q2"><!-- Compare Styles --></div>
+<div class="questionPage q3"><!-- All-Grain Recipe --></div>
+  <div class="questionPage q4"><!-- Compare Styles --></div>
+<div class="questionPage q6"><!-- "Three Cities" --></div>
+<div class="questionPage q7"><!-- Ingredients --></div>
+  <div class="questionPage q8"><!-- Compare Styles --></div>
+<div class="questionPage q9"><!-- Troubleshooting --></div>
   <div class="questionPage q10"><%= render 'q10' %></div>
 </div>
 <div class="paginationFooter"></div>
 <%= render 'pagination' %>
+<%= render 'qCompare' %>
 
-<div class="questionPage q2"><%= render 'qCompare' %></div>
-<div class="questionPage q4"><%= render 'qCompare' %></div>
-<div class="questionPage q8"><%= render 'qCompare' %></div>

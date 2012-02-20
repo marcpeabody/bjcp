@@ -1,6 +1,23 @@
 <script type="text/x-handlebars" data-template-name="style-comparison">
-{{#with BJCP.StyleCompare1}}
+{{#with compare}}
 <div>
+{{#if isCities}}
+<table class="table table-bordered">
+  <tr>
+    <td>6 points</td>
+    <td>Describe the aroma, appearance, flavor, and mouthfeel of each style as in the BJCP Style Guidelines.</td>
+  </tr>
+  <tr>
+    <td>3 points</td>
+    <td>Correctly identify the style associated with each location.</td>
+  </tr>
+  <tr>
+    <td>1 point</td>
+    <td>For each of the styles name at least one classic commercial example as listed in the BJCP Style Guidelines.</td>
+  </tr>
+</table>
+
+{{else}}
 <table class="table table-bordered">
   <tr>
     <td>6 points</td>
@@ -19,14 +36,39 @@
     <td>Describe the similarities and differences between the three sub-styles.</td>
   </tr>
 </table>
+{{/if}}
 </div>
 <table class="styleCompareGrid">
-  <tr>
-    <td></td>
-    {{#each styles}}
-    <td style="text-align: center"><strong>{{style_name}}</strong></td>
-    {{/each}}
-  </tr>
+  {{#if isCities}}
+    <tr>
+      <td><strong>CITY</strong></td>
+      {{#each cities}}
+      <td style="text-align: center"><strong>{{city}}</strong></td>
+      {{/each}}
+    </tr>
+    <tr>
+      <td class="gridRowLabel">STYLE</td>
+      {{#each cities}}
+      <td>
+        {{view BJCP.ClickableView tagName="input" type="text" class="allStylesAhead"}}
+        <div>
+          <ul>
+          {{#each optionalStyles}}
+            <li>{{style_name}}</li>
+          {{/each}}
+        </ul>
+        </div>
+      </td>
+      {{/each}}
+    </tr>
+  {{else}}
+    <tr>
+      <td></td>
+      {{#each styles}}
+      <td style="text-align: center"><strong>{{style_name}}</strong></td>
+      {{/each}}
+    </tr>
+  {{/if}}
   <tr>
     <td class="gridRowLabel">AROMA</td>
     {{#each styles}}
@@ -71,6 +113,7 @@
     </td>
     {{/each}}
   </tr>
+  {{#unless isCities}}
   <tr>
     <td class="gridRowLabel">DISTINGUISH</td>
     {{#each styles}}
@@ -78,23 +121,27 @@
       <textarea></textarea>
       <div class="answers">
         <strong>Ingredients:</strong> {{ingredients}}
+        {{#if history}}
         <br/>
         <strong>History:</strong> {{history}}
+        {{/if}}
       </div>
     </td>
     {{/each}}
   </tr>
+  {{/unless}}
   <tr>
     <td class="gridRowLabel">CLASSIC EXAMPLE</td>
     {{#each styles}}
     <td>
-      <textarea></textarea>
+      <input type="text"/>
       <div class="answers">
         {{examples}}
       </div>
     </td>
     {{/each}}
   </tr>
+  {{#unless isCities}}
   <tr>
     <td class="gridRowLabel">SIMILARITIES</td>
     {{#each styles}}
@@ -123,6 +170,7 @@
     </td>
     {{/each}}
   </tr>
+  {{/unless}}
 </table>
 {{/with}}
 </script>

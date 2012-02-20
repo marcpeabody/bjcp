@@ -25,6 +25,7 @@ jQuery(document).ready(function($){
       var self = this;
       $.ajax({url: '/judge_procedure/sample', data: {limit: 15}, success: function(data){
         self.set('questions', _.map(data, function(x){
+          x['isTrue'] = (x.answer === 'T');
           return Ember.Object.create(x);
         }));
       }});
@@ -111,6 +112,7 @@ jQuery(document).ready(function($){
   display:none;
 }
 </style>
+
 <script type="text/x-handlebars" data-template-name="purpose-quiz">
   List three primary purposes of the BJCP as listed on
   <a href="http://www.bjcp.org" target="_blank">http://www.bjcp.org</a>
@@ -119,11 +121,12 @@ jQuery(document).ready(function($){
 <table>
   {{#each BJCP.Questions.purposes}}
   <tr><td>{{number}}) <input class="purpose purpose{{number}}"type="text"/>
-      <span class="answer hidden">{{purpose}}</span>
+    <span class="answers">{{purpose}}</span>
   </td></tr>
   {{/each}}
 </table>
 </script>
+
 <script type="text/x-handlebars" data-template-name="judge-levels-quiz">
 <table>
   <tr>
@@ -135,15 +138,16 @@ jQuery(document).ready(function($){
   </tr>
   {{#each BJCP.Questions.judgeLevels}}
   <tr>
-    <td><input type="text" style="width: 150px"/></td>
-    <td><input type="text" style="width: 80px"/></td>
-    <td><input type="text" style="width: 80px"/></td>
-    <td><input type="text" style="width: 80px"/></td>
+    <td><input type="text" style="width: 150px"/><div class="answer">{{level}}</div></td>
+    <td><input type="text" style="width: 80px"/><div class="answer">{{min_score}}</div></td>
+    <td><input type="text" style="width: 80px"/><div class="answer">{{min_points}}</div></td>
+    <td><input type="text" style="width: 80px"/><div class="answer">{{judge_points}}</div></td>
     <td nowrap>
       <ul class="nav nav-pills" style="display: inline">
         <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}Yes{{/view}}</li>
         <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}No{{/view}}</li>
       </ul>
+      <div class="answer">{{gm_required}}</div>
     </td>
   </tr>
   {{/each}}
@@ -165,7 +169,9 @@ jQuery(document).ready(function($){
       </ul>
     </td>
     <td>
-      <span class='answer hidden'>{{answer}}</span>
+      <span class='answers'>
+        {{#if isTrue}} True {{else}} False {{/if}}
+      </span>
       <span class='questionText'>{{question}}</span>
     </td>
   </tr>
