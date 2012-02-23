@@ -93,19 +93,25 @@ jQuery(document).ready(function($){
       <table>
         <tr>
           <td colspan="2">
-      {{view templateName="styleQuizTypes"}}
-      {{view promptView questionBinding="this"}}
+            {{view templateName="styleQuizTypes"}}
+            {{view promptView questionBinding="this"}}
           </td>
         </tr>
         <tr>
           <td style="vertical-align: top;">
-      {{view answersView questionBinding="this"}}
+            <div style="width: 220px; min-width: 220px">
+              {{view answersView questionBinding="this"}}
+              {{view feedbackView  questionBinding="this"}}
+            </div>
           </td>
           <td style="vertical-align: top;">
             <div style="padding-left: 10px">
-              {{view feedbackView  questionBinding="this"}}
               {{#if answerGuessed}}
-                {{view templateName="style-overview" styleBinding="answerGuessed"}}
+                <div id="styleOverview" style="overflow: auto" class="fillContentHeight well">
+                  <div style="padding-left: 10px; border: 1px; line-height: 24px">
+                    {{view templateName="style-overview" styleBinding="answerGuessed"}}
+                  </div>
+                </div>
               {{/if}}
             </div>
           </td>

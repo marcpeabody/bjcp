@@ -100,3 +100,9 @@ table td.gridRowLabel {
 #styleOverview h3 {
   margin-top: 12px;
 }
+#mini-quiz-left-column li{
+ cursor: pointer;
+}
+.dropdown-menu {
+  margin-bottom: 8px;
+}

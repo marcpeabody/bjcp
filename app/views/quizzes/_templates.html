@@ -1,4 +1,7 @@
 <script type="text/x-handlebars" data-template-name="styleQuizTypes">
+<table><tr><td>
+<strong>Quiz Type:</strong>
+</td><td>
 <div class="btn-group">
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
     {{Quiz.MenuModel.displayType}}
@@ -28,6 +31,7 @@
     {{/view}}
   </ul>
 </div>
+</td></tr></table>
 </script>
 
 
@@ -137,7 +141,7 @@
 
 <script type="text/x-handlebars" data-template-name="basicAnswers">
   {{#with question}}
-    <ul class='nav nav-tabs nav-stacked' style="width: 220px; min-width: 220px;">{{#each answers}}
+    <ul class='nav nav-tabs nav-stacked'>{{#each answers}}
       {{#view this contentBinding="this" tagName="li"}}
         <a href="#">{{style_name}}</a>
       {{/view}}

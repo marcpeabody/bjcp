@@ -45,6 +45,7 @@ $(function(){
           Quiz.Question.setup();
         }else{
           Quiz.Question.set('answerGuessed', undefined);
+          Quiz.Question.redisplay();
         }
       }else{
         Quiz.Question.setup();
