@@ -43,7 +43,7 @@
     </font></span>
   {{/if}}
   {{#if question.guessedIncorrectly}}
-    <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" is style '{{question.answerGuessed.style_number}}'.</font>
+    <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" is style '{{question.answerGuessed.style_number}}'. Try again.</font>
   {{/if}}
 </script>
 <script type="text/x-handlebars" data-template-name="style-aroma-prompt">
@@ -61,7 +61,7 @@
   {{/if}}
   {{#if question.guessedIncorrectly}}
   <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the aroma of:
-    "{{question.answerGuessed.aroma}}"</font>
+    "{{question.answerGuessed.aroma}}". Try again.</font>
   {{/if}}
 </script>
 <script type="text/x-handlebars" data-template-name="style-appearance-prompt">
@@ -79,7 +79,7 @@
   {{/if}}
   {{#if question.guessedIncorrectly}}
   <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the appearance of:
-    "{{question.answerGuessed.appearance}}"</font>
+    "{{question.answerGuessed.appearance}}". Try again.</font>
   {{/if}}
 </script>
 <script type="text/x-handlebars" data-template-name="style-flavor-prompt">
@@ -97,7 +97,7 @@
   {{/if}}
   {{#if question.guessedIncorrectly}}
   <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the flavor of:
-    "{{question.answerGuessed.flavor}}"</font>
+    "{{question.answerGuessed.flavor}}". Try again.</font>
   {{/if}}
 </script>
 <script type="text/x-handlebars" data-template-name="style-mouthfeel-prompt">
@@ -115,7 +115,7 @@
   {{/if}}
   {{#if question.guessedIncorrectly}}
   <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" has the mouthfeel of:
-    "{{question.answerGuessed.mouthfeel}}"</font>
+    "{{question.answerGuessed.mouthfeel}}". Try again.</font>
   {{/if}}
 </script>
 <script type="text/x-handlebars" data-template-name="style-example-prompt">
@@ -130,14 +130,14 @@
     </font></span>
   {{/if}}
   {{#if question.guessedIncorrectly}}
-    <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" is not correct.</font>
+    <font color="red"> Sorry... "{{question.answerGuessed.style_name}}" is not correct. Try again.</font>
   {{/if}}
 </script>
 
 
 <script type="text/x-handlebars" data-template-name="basicAnswers">
   {{#with question}}
-    <ul class='nav nav-tabs nav-stacked'>{{#each answers}}
+    <ul class='nav nav-tabs nav-stacked' style="width: 220px; min-width: 220px;">{{#each answers}}
       {{#view this contentBinding="this" tagName="li"}}
         <a href="#">{{style_name}}</a>
       {{/view}}

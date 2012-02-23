@@ -97,10 +97,15 @@ body {overflow: hidden};
       {{/each}}
     </div>
     </td><td>
-    <div id="styleOverview" style="overflow: auto; display:none" class="fillContentHeight well">
-      <div style="padding-left: 10px; border: 1px">
+    <div id="styleOverview" style="overflow: auto" class="fillContentHeight well">
+      <div style="padding-left: 10px; border: 1px; line-height: 24px">
         {{#if styleSelected}}
           {{view templateName="style-overview" styleBinding="styleSelected"}}
+        {{else}}
+          <div style="margin-top: 80px; font-size: 20px; text-align: center">
+            <div><< Select a style to view it.</div>
+            <div style="margin-top: 30px">You may also use the<br/>&uArr; and &dArr;<br/>arrow keys to navigate.</div>
+          </div>
         {{/if}}
       </div>
     </div>

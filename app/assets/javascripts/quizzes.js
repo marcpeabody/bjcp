@@ -37,10 +37,15 @@ $(function(){
   Bjcp.QuizLink = Ember.View.extend({
     click: function(e){
       e.preventDefault();
+
       var template = this.get('templateName');
       if(template){
         Quiz.MenuModel.set('selectedType', template);
-        Quiz.Question.redisplay();
+        if(Quiz.Question.get('guessedCorrectly')){
+          Quiz.Question.setup();
+        }else{
+          Quiz.Question.set('answerGuessed', undefined);
+        }
       }else{
         Quiz.Question.setup();
       }

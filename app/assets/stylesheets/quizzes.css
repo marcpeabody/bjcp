@@ -97,3 +97,6 @@ table td.gridRowLabel {
 .point{
   cursor: pointer;
 }
+#styleOverview h3 {
+  margin-top: 12px;
+}
