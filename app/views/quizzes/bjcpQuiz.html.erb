@@ -1,5 +1,6 @@
 <script type="text/javascript">
 jQuery(document).ready(function($){
+  $('.navLink').live('click',function(e){e.preventDefault();})
   var get = Ember.get;
   // Can use with an inner template:
   //{{#answer tagName="span"}}Purpose: {{purpose}}{{/answer}}
@@ -8,11 +9,15 @@ jQuery(document).ready(function($){
   Ember.Handlebars.registerHelper('answer', function(path, options) {
     return Ember.Handlebars.ViewHelper.helper(this, "BJCP.Answer", path);
   });
-
-  var paginationView = Ember.View.extend({templateName: 'pagination'});
-  paginationView.create().appendTo('.paginationHeader');
-  paginationView.create().appendTo('.paginationFooter');
-  $('.questionPage:first').show();
+  Ember.Handlebars.registerHelper('page', function(path, options) {
+    return Ember.Handlebars.ViewHelper.helper(this, "BJCP.QuizPage", path);
+  });
+  Ember.Handlebars.registerHelper('pageLink', function(path, options) {
+    return Ember.Handlebars.ViewHelper.helper(this, "BJCP.PageLink", path);
+  });
+  Ember.Handlebars.registerHelper('navLink', function(path, options) {
+    return Ember.Handlebars.ViewHelper.helper(this, "BJCP.NavigationLink", path);
+  });
 
   BJCP.ClickableView = Ember.View.extend({
     change: function(evt) {
@@ -34,7 +39,10 @@ jQuery(document).ready(function($){
 
   BJCP.SampleQuiz = Ember.Object.create({
     showingAnswers: false,
-    activePage: undefined
+    activePage: 'Intro',
+    showAnswerToggle: function(){
+      return this.get('activePage') !== 'Intro'
+    }.property('activePage')
   });
 
   BJCP.ShowAnswers = Ember.View.extend({
@@ -47,12 +55,7 @@ jQuery(document).ready(function($){
       BJCP.SampleQuiz.set('showingAnswers', false);
     }
   });
-  //TODO {{answer}} not working within each
-  BJCP.Answer = Ember.View.extend({
-    tagName: "div",
-    isVisible: function(){
-      return BJCP.SampleQuiz.get('showingAnswers');
-    }.property('BJCP.SampleQuiz.showingAnswers'),
+  BJCP.PassThru = Ember.View.extend({
     templateContext: Ember.computed(function(key, value) {
       return Ember.get(this, 'bindingContext');
     }).cacheable(),
@@ -76,75 +79,79 @@ jQuery(document).ready(function($){
       }
     }
   });
-  $('.pageOption').live('click', function(e){
-    e.preventDefault();
-    if($(this).hasClass('active')) return;
-    var page = parseInt($(this).attr('data-page'));
-    $('.questionPage').hide().filter('.q'+page).show();
-    $('.pageOption.next').attr('data-page', page+1);
-    $('.pageOption').removeClass('active').filter('[data-page='+page+']').addClass('active');
-    if(page === 10) $('.pageOption.next').hide();
-    else $('.pageOption.next').show();
-
-    if(page === 0) $('.showHideAnswers').hide();
-    else $('.showHideAnswers').show();
-
-    if(BJCP.SampleQuiz.get('showingAnswers')) $('.answers').show();
-    else $('.answers').hide();
-    autoStyleFill();
+  BJCP.Answer = BJCP.PassThru.extend({
+    tagName: "div",
+    isVisible: function(){
+      return BJCP.SampleQuiz.get('showingAnswers');
+    }.property('BJCP.SampleQuiz.showingAnswers'),
   });
-  var StyleCompareClass = Ember.Object.extend();
-  BJCP.StyleCompare1 = StyleCompareClass.create();
-  BJCP.StyleCompare2 = StyleCompareClass.create();
-  BJCP.StyleCompare3 = StyleCompareClass.create();
-  BJCP.StyleCompareCities = StyleCompareClass.create({
-    isCities: true,
-    cities: [],
-    styles: []
+  BJCP.PageLink = Ember.View.extend({
+    templateName: "nav-link",
+    click: function(){
+      var page = BJCP.SampleQuiz.get('activePage');
+      var myPage = this.get('myPage');
+      if(myPage === 'Next'){
+        if(BJCP.SampleQuiz.get('activePage') === 'Intro'){
+          BJCP.SampleQuiz.set('activePage', '1');
+        }else{
+          BJCP.SampleQuiz.set('activePage', ''+(parseInt(page)+1));
+        }
+      }else{
+        BJCP.SampleQuiz.set('activePage', this.get('myPage'));
+      }
+    },
+    linkDisplay: function(){
+      return this.get('raw') || this.get('myPage');
+    }.property()
   });
-
-  $.ajax({url: '/style_comparisons/for_exam',
-          data: {limit: 3},
-          success: function(data){
-    BJCP.StyleCompare1.set('styles', _.map(data[0], function(x){return Ember.Object.create(x);}));
-    BJCP.StyleCompare2.set('styles', _.map(data[1], function(x){return Ember.Object.create(x);}));
-    BJCP.StyleCompare3.set('styles', _.map(data[2], function(x){return Ember.Object.create(x);}));
-    //BJCP.StyleCompare2.set('styles', data[1]);
-  }});
-  $.ajax({url: '/styles/styles_with_city',
-          data: {},
-          success: function(data){
-
-    BJCP.StyleCompareCities.set('cities', _.map(data,
-      function(styles,city){
-        return Ember.Object.create({city: city,
-          optionalStyles: styles
-          });
-      }));
-
-    BJCP.StyleCompareCities.set('styles', [Ember.Object.create({}),
-                                           Ember.Object.create({}),
-                                           Ember.Object.create({})]);
-  }});
-  $('.pageOption[data-page="2"]').first().trigger('click');
-//  Ember.View.create({templateName: 'style-comparison'}).appendTo('.quizContent');
-  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompare1}).appendTo('.q2');
-  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompare2}).appendTo('.q4');
-  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompareCities}).appendTo('.q6');
-  Ember.View.create({templateName: 'style-comparison', compare: BJCP.StyleCompare3}).appendTo('.q8');
+  BJCP.NavigationLink = BJCP.PageLink.extend({
+    tagName: "li",
+    isVisible: function(){
+      var page = BJCP.SampleQuiz.get('activePage');
+      var myPage = this.get('myPage');
+      if(myPage === 'Next' && page === '10') return false
+      return true;
+    }.property('BJCP.SampleQuiz.activePage'),
+    isActive: function(){
+      var page = BJCP.SampleQuiz.get('activePage');
+      var myPage = this.get('myPage');
+      return page === myPage;
+    }.property('BJCP.SampleQuiz.activePage'),
+    classNameBindings: ['isActive:active']
+  });
+  BJCP.QuizPage = Ember.View.extend({
+    isVisible: function(){
+      var page = BJCP.SampleQuiz.get('activePage');
+      var myPage = this.get('myPage');
+      return page === myPage;
+    }.property('BJCP.SampleQuiz.activePage'),
+    classNameBindings: ['myPageClass'],
+    myPageClass: function(){
+      return 'q'+this.get('myPage');
+    }.property('BJCP.SampleQuiz.activePage')
+  });
 
   BJCP.AllStyleNames = Ember.Object.create({names: []});
   $.ajax({url: '/styles/all_names',
           data: {},
           success: function(data){
     BJCP.AllStyleNames.set('names', data);
-    autoStyleFill();
+    setTimeout(autoStyleFill,3000);
   }});
 
-  var autoStyleFill = function(){
+  window.autoStyleFill = function(){
     $('.allStylesAhead').typeahead({source: BJCP.AllStyleNames.get('names')});
   };
 
+  BJCP.PillRadio = Ember.View.extend({
+    click: function(){
+      var $li = this.$().parent('li');
+      $li.addClass('active');
+      $li.siblings().removeClass('active');
+    }
+  });
+
+  Ember.View.create({templateName: 'sample-quiz'}).appendTo('.mainArea');
 });
 </script>
 <style>
@@ -152,24 +159,31 @@ jQuery(document).ready(function($){
   display: none;
 }
 </style>
+<script type="text/x-handlebars" data-template-name="sample-quiz">
 <div class="paginationHeader center"></div>
 <div class="quizContent">
-  <div class="questionPage q0"><%= render 'intro' %></div>
-  <div class="questionPage q1"><%= render 'q1' %></div>
-  <div class="questionPage q2"><!-- Compare Styles --></div>
-<div class="questionPage q3"><!-- All-Grain Recipe --></div>
-  <div class="questionPage q4"><!-- Compare Styles --></div>
-  <div class="questionPage q5"><!-- Characteristics --></div>
-  <div class="questionPage q6"><!-- "Three Cities" --></div>
-  <div class="questionPage q7"><!-- Ingredients --></div>
-  <div class="questionPage q8"><!-- Compare Styles --></div>
-  <div class="questionPage q9"><!-- Brewing Process --></div>
-  <div class="questionPage q10"><!-- Classic Example Scoresheet --></div>
+  {{page myPage="Intro"}}
+  {{page myPage="1"}}<!-- Purpose, Levels, TF -->
+  {{page myPage="2"}}<!-- Compare Styles -->
+{{page myPage="3"}}<!-- All-Grain Recipe -->
+  {{page myPage="4"}}<!-- Compare Styles -->
+  {{page myPage="5"}}<!-- Characteristics -->
+  {{page myPage="6"}}<!-- Three Cities -->
+  {{page myPage="7"}}<!-- Ingredients -->
+  {{page myPage="8"}}<!-- Compare Styles -->
+  {{page myPage="9"}}<!-- Brewing Process -->
+  {{page myPage="10"}}
 </div>
 <div class="paginationFooter center"></div>
+</script>
 <%= render 'pagination' %>
+<%= render 'intro' %>
+<%= render 'q1' %>
 <%= render 'qCompare' %>
+<%= render 'qRecipe' %>
 <%= render 'qCharacteristics' %>
 <%= render 'qIngBrewProc' %>
-<%= render 'qRecipe' %>
 <%= render 'qClassicExample' %>
+<script type="text/x-handlebars" data-template-name="nav-link">
+  <a href="#" class="navLink">{{linkDisplay}}</a>
+</script>

@@ -42,65 +42,12 @@ jQuery(document).ready(function($){
       }));
     }
   });
-
   BJCP.Questions.setup();
-
-  BJCP.Form = Ember.View.extend({
-    submit: function(e){
-      e.preventDefault();
-    }
-  });
 
   Ember.View.create({templateName: 'purpose-quiz'}).appendTo('.q1');
   Ember.View.create({templateName: 'judge-levels-quiz'}).appendTo('.q1');
   Ember.View.create({templateName: 'tf-quiz'}).appendTo('.q1');
 
-  $('.judgingTFQuiz').live('click', function(e){
-    e.preventDefault();
-    getJudgingTFQuiz();
-  });
-
-  $('.tfQuestionsForm').live('submit', function(e){
-    e.preventDefault();
-    var numberCorrect = 0;
-    $(this).find('li').each(function(){
-      var selectedVal   = $(this).find(':checked').val();
-      var actualVal     = $(this).find('.answer').html();
-      var $questionText = $(this).find('.questionText');
-      if(selectedVal === actualVal){
-        numberCorrect += 1;
-        $questionText.css('color', 'green');
-      }else{
-        $questionText.css('color', 'red');
-      }
-    });
-    updateStatus(numberCorrect);
-  });
-
-  var updateStatus = function(numberCorrect){
-    var status = "You got "+numberCorrect+" out of 15 answers correct. ";
-    var points = (Math.floor(numberCorrect/3)||'').toString();
-    var remainder = numberCorrect % 3;
-    if(remainder) points += " <sup>"+remainder+"</sup>&frasl;<sub>3</sub>";
-    status += "You get "+points+" out of 5 possible points for this section.";
-    $('.status').html(status);
-  };
-
-  var getJudgingTFQuiz = function(){
-    var optionCount = 15;
-    var judgingTF = {};
-    var randomQuestions = _.sample(judgingTF, optionCount);
-    var $quiz = $(Mustache.to_html(quizTemplate, {questions : randomQuestions}));
-    $('.content').html($quiz);
-  };
-
-  BJCP.PillRadio = Ember.View.extend({
-    click: function(){
-      var $li = this.$().parent('li');
-      $li.addClass('active');
-      $li.siblings().removeClass('active');
-    }
-  });
 //setTimeout(function(){$('.pageOption[data-page="1"]:first').click();}, 1000);
 });
 </script>

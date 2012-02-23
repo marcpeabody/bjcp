@@ -1,30 +1,38 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  var paginationView = Ember.View.extend({templateName: 'pagination'});
+  paginationView.create().appendTo('.paginationHeader');
+  paginationView.create().appendTo('.paginationFooter');
+});
+</script>
 <script type="text/x-handlebars" data-template-name="pagination">
 <div class="pagination">
 <table class="center">
   <tr>
     <td>
   <ul>
-    <li class="active pageOption" data-page="0"><a href="#">Intro</a></li>
+    {{navLink myPage="Intro"}}
     <% (1..10).each do |i| %>
-      <li class="pageOption" data-page="<%= i %>">
-        <a href="#"><%= i %></a>
-      </li>
+      {{navLink myPage="<%= i %>"}}
     <% end %>
-    <li class="pageOption next" data-page="1"><a href="#">Next</a></li>
+    {{navLink myPage="Next"}}
   </ul>
     </td>
   </tr>
-  <tr class="showHideAnswers">
-    <td style="text-align:center">
-  {{#if BJCP.SampleQuiz.showingAnswers}}
-    {{#view BJCP.HideAnswers classBinding="btn" tagName="button"}}
-      <i class="icon-remove-sign"></i> Hide Answers
-    {{/view}}
-  {{else}}
-    {{#view BJCP.ShowAnswers classBinding="btn" tagName="button"}}
-      <i class="icon-ok-sign"></i> Show Answers
-    {{/view}}
+  {{#if BJCP.SampleQuiz.showAnswerToggle}}
+    <tr class="showHideAnswers">
+      <td style="text-align:center">
+    {{#if BJCP.SampleQuiz.showingAnswers}}
+      {{#view BJCP.HideAnswers classBinding="btn" tagName="button"}}
+        <i class="icon-remove-sign"></i> Hide Answers
+      {{/view}}
+    {{else}}
+      {{#view BJCP.ShowAnswers classBinding="btn" tagName="button"}}
+        <i class="icon-ok-sign"></i> Show Answers
+      {{/view}}
+    {{/if}}
+    </td></tr>
   {{/if}}
-  </td></tr></table>
+  </table>
 </div>
 </script>

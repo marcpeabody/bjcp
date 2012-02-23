@@ -1,3 +1,10 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  window.x = $('.q0')
+  Ember.View.create({templateName: 'quiz-intro'}).appendTo('.qIntro');
+});
+</script>
+<script type="text/x-handlebars" data-template-name="quiz-intro">
 <div>
   <pre>
   This is a practice app for the written BJCP exam. (yes, the one soon to be replaced)
@@ -10,7 +17,7 @@
 </div>
 <table class="table table-bordered table-striped">
   <tr>
-    <td><a href="?page=1">Q1</a></td>
+    <td>{{pageLink myPage="1" raw="Q1"}}</td>
     <td>
       <ul>
         <li>List three primary purposes of the BJCP.</li>
@@ -20,55 +27,55 @@
     </td>
   </tr>
   <tr>
-    <td><a href="?page=2">Q2</a></td>
+    <td>{{pageLink myPage="2" raw="Q2"}}</td>
     <td>
       Random Beer Styles
     </td>
   </tr>
   <tr>
-    <td><a href="?page=3">Q3</a></td>
+    <td>{{pageLink myPage="3" raw="Q3"}}</td>
     <td>
       All-grain recipe
     </td>
   </tr>
   <tr>
-    <td><a href="?page=4">Q4</a></td>
+    <td>{{pageLink myPage="4" raw="Q4"}}</td>
     <td>
       Random Beer Styles
     </td>
   </tr>
   <tr>
-    <td><a href="?page=5">Q5</a></td>
+    <td>{{pageLink myPage="5" raw="Q5"}}</td>
     <td>
       Beer Characterics Troubleshooting
     </td>
   </tr>
   <tr>
-    <td><a href="?page=6">Q6</a></td>
+    <td>{{pageLink myPage="6" raw="Q6"}}</td>
     <td>
       "Three Cities" Beer Styles
     </td>
   </tr>
   <tr>
-    <td><a href="?page=7">Q7</a></td>
+    <td>{{pageLink myPage="7" raw="Q7"}}</td>
     <td>
       Ingredients
     </td>
   </tr>
   <tr>
-    <td><a href="?page=8">Q8</a></td>
+    <td>{{pageLink myPage="8" raw="Q8"}}</td>
     <td>
       Random Beer Styles
     </td>
   </tr>
   <tr>
-    <td><a href="?page=9">Q9</a></td>
+    <td>{{pageLink myPage="9" raw="Q9"}}</td>
     <td>
       Troubleshooting
     </td>
   </tr>
   <tr>
-    <td><a href="?page=10">Q10</a></td>
+    <td>{{pageLink myPage="10" raw="Q10"}}</td>
     <td>
       Classic Example Scoresheet
     </td>
@@ -78,3 +85,4 @@ Random Beer Style Questions are:
 differentiate beers, describe a family of beers, discuss flavor
 and aroma characteristics, identify a set of beers based on a
 common ingredient, technique or country
+</script>
