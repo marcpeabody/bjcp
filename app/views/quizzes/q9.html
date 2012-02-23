@@ -1,0 +1,116 @@
+<script type="text/x-handlebars" data-template-name="style-">
+{{#with BJCP.StyleCompare1}}
+<div>
+Describe and discuss the following beer characteristics.  What causes them and how are they avoided 
+and controlled?  Are they ever appropriate, and if so, in what beer styles? 
+<table class="table table-bordered">
+  <tr>
+    <td>3 points</td>
+    <td>Describe each characteristic.</td>
+  </tr>
+  <tr>
+    <td>4 points</td>
+    <td>Identify the causes and controls for each characteristic.</td>
+  </tr>
+  <tr>
+    <td>3 point</td>
+    <td>Identify appropriate/inappropriate styles.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGrid">
+  <tr>
+    <td></td>
+    {{#each styles}}
+    <td style="text-align: center"><strong>{{style_name}}</strong></td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">AROMA</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      {{answer val="aroma"}}
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">APPEARANCE</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      {{answer val="appearance"}}
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">FLAVOR</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      {{answer val="flavor"}}
+    </td>
+    {{/each}}
+  </tr>
+  <tr class="answers">
+    <td class="gridRowLabel">MOUTHFEEL</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      {{answer val="mouthfeel"}}
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DISTINGUISH</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <strong>Ingredients:</strong> {{ingredients}}
+        <br/>
+        <strong>History:</strong> {{history}}
+      {{/answer}}
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CLASSIC EXAMPLE</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+      {{answer val="examples"}}
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">SIMILARITIES</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+    </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DIFFERENCES</td>
+    {{#each styles}}
+    <td>
+      <textarea></textarea>
+    </td>
+    {{/each}}
+  </tr>
+  {{#answer tagName="tr"}}
+    <td>other info for reference</td>
+    {{#each styles}}
+    <td>
+      <strong>Impression:</strong> {{impression}}<br/>
+      <strong>Comments:</strong> {{comments}}<br/>
+      <strong>OG Range:</strong> {{og_low}}-{{og_high}}<br/>
+      <strong>FG Range:</strong> {{fg_low}}-{{fg_high}}<br/>
+      <strong>IBU:</strong> {{ibu_low}}-{{ibu_high}}<br/>
+    </td>
+    {{/each}}
+  {{/answer}}
+</table>
+{{/with}}
+</script>

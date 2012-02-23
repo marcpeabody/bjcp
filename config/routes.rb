@@ -10,6 +10,7 @@ Bjcp::Application.routes.draw do
   match 'judge_levels/all_levels' => 'judge_levels#all_levels'
   match 'judge_procedure/all' => 'judge_procedure#all_questions'
   match 'judge_procedure/sample' => 'judge_procedure#sample'
+  match 'characteristics/sample' => 'characteristics#sample'
   # match 'quizzes/styleCode' => 'quizzes#style_code'
   # match 'quizzes/appearance' => 'quizzes#appearance'
   match 'quizzes' => 'quizzes#show'

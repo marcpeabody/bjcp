@@ -1,5 +1,13 @@
 <script type="text/javascript">
 jQuery(document).ready(function($){
+  var get = Ember.get;
+  // Can use with an inner template:
+  //{{#answer tagName="span"}}Purpose: {{purpose}}{{/answer}}
+  // or just define needed variable to display:
+  //{{answer tagName="span" val="purpose"}}
+  Ember.Handlebars.registerHelper('answer', function(path, options) {
+    return Ember.Handlebars.ViewHelper.helper(this, "BJCP.Answer", path);
+  });
 
   var paginationView = Ember.View.extend({templateName: 'pagination'});
   paginationView.create().appendTo('.paginationHeader');
@@ -21,9 +29,6 @@ jQuery(document).ready(function($){
       selectedStyles[i] = Ember.Object.create(match || {});
       selectedStyles = _.map(selectedStyles, function(x){return x;}); // clone, otherwise Ember ignores change
       BJCP.StyleCompareCities.set('styles', selectedStyles);
-
-      // TODO answers auto-hide on the re-rendering of the template
-      //      need to make Ember be the one to hide/show answers, not jquery/css
     }
   });
 
@@ -34,13 +39,41 @@ jQuery(document).ready(function($){
 
   BJCP.ShowAnswers = Ember.View.extend({
     click: function(){
-      $('.answers').show();
       BJCP.SampleQuiz.set('showingAnswers', true);
     }
   });
   BJCP.HideAnswers = Ember.View.extend({
     click: function(){
       BJCP.SampleQuiz.set('showingAnswers', false);
+    }
+  });
+  //TODO {{answer}} not working within each
+  BJCP.Answer = Ember.View.extend({
+    tagName: "div",
+    isVisible: function(){
+      return BJCP.SampleQuiz.get('showingAnswers');
+    }.property('BJCP.SampleQuiz.showingAnswers'),
+    templateContext: Ember.computed(function(key, value) {
+      return Ember.get(this, 'bindingContext');
+    }).cacheable(),
+    template: Ember.computed(function(key, value) {
+      // template only gets called if {{answer}} and not {{#answer}}{{/answer}}
+      if (value !== undefined) { return value; }
+      var context = get(this, 'templateContext');
+      var val = get(this,'val');
+      var raw = get(this,'raw'); // literal as-is value
+      if(raw) return raw;
+      return context.get(get(this,'val')) ||
+             get(this, 'defaultTemplate');
+    }).property('templateName').cacheable(),
+    render: function(buffer) {
+      var template = get(this, 'template');
+      if (template) {
+        var context = get(this, 'templateContext'),
+            data = { view: this, buffer: buffer, isRenderData: true };
+        var output = (typeof template === 'string') ? template : template(context, { data: data });
+        if (output !== undefined) { buffer.push(output); }
+      }
     }
   });
   $('.pageOption').live('click', function(e){
@@ -73,10 +106,10 @@ jQuery(document).ready(function($){
   $.ajax({url: '/style_comparisons/for_exam',
           data: {limit: 3},
           success: function(data){
-    console.log(data)
-    BJCP.StyleCompare1.set('styles', data[0]);
-    BJCP.StyleCompare2.set('styles', data[1]);
-    BJCP.StyleCompare3.set('styles', data[2]);
+    BJCP.StyleCompare1.set('styles', _.map(data[0], function(x){return Ember.Object.create(x);}));
+    BJCP.StyleCompare2.set('styles', _.map(data[1], function(x){return Ember.Object.create(x);}));
+    BJCP.StyleCompare3.set('styles', _.map(data[2], function(x){return Ember.Object.create(x);}));
+    //BJCP.StyleCompare2.set('styles', data[1]);
   }});
   $.ajax({url: '/styles/styles_with_city',
           data: {},
@@ -89,9 +122,9 @@ jQuery(document).ready(function($){
           });
       }));
 
-    BJCP.StyleCompareCities.set('styles', [Ember.Object.create({aroma: 'x'}),
-        Ember.Object.create({aroma: "starter"}),
-          Ember.Object.create({aroma: 'e'})]);
+    BJCP.StyleCompareCities.set('styles', [Ember.Object.create({}),
+                                           Ember.Object.create({}),
+                                           Ember.Object.create({})]);
   }});
   $('.pageOption[data-page="2"]').first().trigger('click');
 //  Ember.View.create({templateName: 'style-comparison'}).appendTo('.quizContent');
@@ -119,20 +152,24 @@ jQuery(document).ready(function($){
   display: none;
 }
 </style>
-<div class="paginationHeader"></div>
+<div class="paginationHeader center"></div>
 <div class="quizContent">
   <div class="questionPage q0"><%= render 'intro' %></div>
   <div class="questionPage q1"><%= render 'q1' %></div>
   <div class="questionPage q2"><!-- Compare Styles --></div>
 <div class="questionPage q3"><!-- All-Grain Recipe --></div>
   <div class="questionPage q4"><!-- Compare Styles --></div>
-<div class="questionPage q6"><!-- "Three Cities" --></div>
-<div class="questionPage q7"><!-- Ingredients --></div>
+  <div class="questionPage q5"><!-- Characteristics --></div>
+  <div class="questionPage q6"><!-- "Three Cities" --></div>
+  <div class="questionPage q7"><!-- Ingredients --></div>
   <div class="questionPage q8"><!-- Compare Styles --></div>
-<div class="questionPage q9"><!-- Troubleshooting --></div>
-  <div class="questionPage q10"><%= render 'q10' %></div>
+  <div class="questionPage q9"><!-- Brewing Process --></div>
+  <div class="questionPage q10"><!-- Classic Example Scoresheet --></div>
 </div>
-<div class="paginationFooter"></div>
+<div class="paginationFooter center"></div>
 <%= render 'pagination' %>
 <%= render 'qCompare' %>
-
+<%= render 'qCharacteristics' %>
+<%= render 'qIngBrewProc' %>
+<%= render 'qRecipe' %>
+<%= render 'qClassicExample' %>

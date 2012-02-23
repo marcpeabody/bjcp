@@ -51,13 +51,13 @@
       {{#each cities}}
       <td>
         {{view BJCP.ClickableView tagName="input" type="text" class="allStylesAhead"}}
-        <div>
+        {{#answer}}
           <ul>
           {{#each optionalStyles}}
             <li>{{style_name}}</li>
           {{/each}}
         </ul>
-        </div>
+        {{/answer}}
       </td>
       {{/each}}
     </tr>
@@ -74,9 +74,7 @@
     {{#each styles}}
     <td>
       <textarea></textarea>
-      <div class="answers">
-        {{aroma}}
-      </div>
+      {{answer val="aroma"}}
     </td>
     {{/each}}
   </tr>
@@ -85,9 +83,7 @@
     {{#each styles}}
     <td>
       <textarea></textarea>
-      <div class="answers">
-        {{appearance}}
-      </div>
+      {{answer val="appearance"}}
     </td>
     {{/each}}
   </tr>
@@ -96,9 +92,7 @@
     {{#each styles}}
     <td>
       <textarea></textarea>
-      <div class="answers">
-        {{flavor}}
-      </div>
+      {{answer val="flavor"}}
     </td>
     {{/each}}
   </tr>
@@ -107,9 +101,7 @@
     {{#each styles}}
     <td>
       <textarea></textarea>
-      <div class="answers"
-        {{mouthfeel}}
-      </div>
+      {{answer val="mouthfeel"}}
     </td>
     {{/each}}
   </tr>
@@ -119,13 +111,13 @@
     {{#each styles}}
     <td>
       <textarea></textarea>
-      <div class="answers">
+      {{#answer}}
         <strong>Ingredients:</strong> {{ingredients}}
         {{#if history}}
         <br/>
         <strong>History:</strong> {{history}}
         {{/if}}
-      </div>
+      {{/answer}}
     </td>
     {{/each}}
   </tr>
@@ -135,9 +127,7 @@
     {{#each styles}}
     <td>
       <input type="text"/>
-      <div class="answers">
-        {{examples}}
-      </div>
+      {{answer val="examples"}}
     </td>
     {{/each}}
   </tr>
@@ -158,7 +148,7 @@
     </td>
     {{/each}}
   </tr>
-  <tr class="answers">
+  {{#answer tagName="tr"}}
     <td>other info for reference</td>
     {{#each styles}}
     <td>
@@ -169,7 +159,7 @@
       <strong>IBU:</strong> {{ibu_low}}-{{ibu_high}}<br/>
     </td>
     {{/each}}
-  </tr>
+  {{/answer}}
   {{/unless}}
 </table>
 {{/with}}

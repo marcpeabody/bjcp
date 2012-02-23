@@ -1,0 +1,122 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  BJCP.ClassicStyle = Ember.Object.create({
+    style: undefined,
+    setup: function(){
+      var self = this;
+      $.ajax({url: '/styles/styles', data: {limit: 1}, success: function(data){
+        self.set('style', Ember.Object.create(data[0]));
+      }});
+    }
+  });
+  BJCP.ClassicStyle.setup();
+
+  Ember.View.create({templateName: 'classic-example', style: BJCP.ClassicStyle}).appendTo('.q10');
+});
+</script>
+
+<script type="text/x-handlebars" data-template-name="classic-example">
+{{#with style.style}}
+<div>
+Complete this score sheet as if you were presented with a classic commercial example of the {{style}} style.
+<br/>Complete the scoresheet just as you would in a normal competition with the exception that you do not need to complete either the Overall Impression section or the actual scores.
+</div>
+<table class="styleCompareGridOne">
+  <tr>
+    <td class="gridRowLabel">SUBSTYLE</td>
+    <td style="text-align: center"><strong>{{style_name}}</strong></td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CLASSIC EXAMPLE</td>
+    <td>
+      <input type="text"/>
+      {{answer val="examples"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">AROMA</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="aroma"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">APPEARANCE</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="appearance"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">FLAVOR</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="flavor"}}
+    </td>
+  </tr>
+  <tr class="answers">
+    <td class="gridRowLabel">MOUTHFEEL</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="mouthfeel"}}
+    </td>
+  </tr>
+  {{#answer tagName="tr"}}
+    <td>other info for reference</td>
+    <td>
+      <strong>Impression:</strong> {{impression}}<br/>
+      <strong>Comments:</strong> {{comments}}<br/>
+      <strong>OG Range:</strong> {{og_low}}-{{og_high}}<br/>
+      <strong>FG Range:</strong> {{fg_low}}-{{fg_high}}<br/>
+      <strong>IBU:</strong> {{ibu_low}}-{{ibu_high}}<br/>
+    </td>
+  {{/answer}}
+</table>
+<div style="width=100%; text-align: center">
+<table class="table-bordered center">
+  <tr>
+    <td colspan="3"><strong>Stylistic Accuracy</strong></td>
+  </tr>
+  <tr>
+    <td style="text-align:right">Classic Example</td>
+    <td>
+      <ul class="nav nav-pills" style="display: inline">
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}5{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}4{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}3{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}2{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}1{{/view}}</li>
+      </ul>
+    </td>
+    <td style="text-align:left">Not to Style</td>
+  </tr>
+  <tr>
+    <td style="text-align:right">Flawless</td>
+    <td>
+      <ul class="nav nav-pills" style="display: inline">
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}5{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}4{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}3{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}2{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}1{{/view}}</li>
+      </ul>
+    </td>
+    <td style="text-align:left">Significant Flaws</td>
+  </tr>
+  <tr>
+    <td style="text-align:right">Wonderful</td>
+    <td>
+      <ul class="nav nav-pills" style="display: inline">
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}5{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}4{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}3{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}2{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}1{{/view}}</li>
+      </ul>
+    </td>
+    <td style="text-align:left">Lifeless</td>
+  </tr>
+</table>
+</div>
+{{/with}}
+</script>

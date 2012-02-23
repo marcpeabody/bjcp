@@ -16,10 +16,12 @@
         =#%a.brand{:href=>"#"} BJCP
         .nav-collapse
           %ul.nav
-            = main_menu_link "Style Quizzes", quizzes_path
+            = main_menu_link "Styles", '/'
+            = main_menu_link "Practice BJCP Exam", '/takeSampleExam'
+            = main_menu_link "Mini Quizzes", quizzes_path
             =# main_menu_link "BJCP Purposes", '/purpose.html'
             =# main_menu_link "Judging Procedures", '/tf.html'
-            = main_menu_link "Style Comparisons", style_comparisons_random_path
+            =# main_menu_link "Style Comparisons", style_comparisons_random_path
 
   .container.mainArea
     = yield

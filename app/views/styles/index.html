@@ -22,9 +22,6 @@ jQuery(document).ready(function($){
       $('.styleNav').scrollTop(scrollTop + selectedRelULTop + (ul.height()/2) - (navHeight/2));
   };
   $(window).resize(resizeHeight);
-  $('.styleNav').focus(function(){
-    console.log('focus')
-  });
 
   $(document).keydown(function(e){
     switch(e.which){

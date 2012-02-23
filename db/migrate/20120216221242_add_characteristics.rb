@@ -28,7 +28,7 @@ CHARACTERISTICS = [["Acetaldehyde",["Green apples","Grassy"],"Light American Lag
   ["High amt of fermentables", "Under pitching", "Low O2 or FAN"],
   ["Pitch sufficient yeast quantity", "Aerate wort prepitching"]],
 
- ["Astringency", ["Mouthpuckering","Flavor","Mouthfeel"],nil,
+ ["Astringency", ["Mouthpuckering","Flavor","Mouthfeel"],"Never Appropriate",
   ["Extraction of tannins - over crushing or oversparging", "alkaline water", "Lengthy hop immersion times",
     "Polyphenols from acetobacter", "Oxidation", "Spices"],
   ["Don't over crush", "Keep sparge temp low", "Use acidified water in sparge",
@@ -43,7 +43,7 @@ CHARACTERISTICS = [["Acetaldehyde",["Green apples","Grassy"],"Light American Lag
   ["Reduced by yeast - allow complete fermentation", "Properly aerate wort prior to pitching",
    "Do a diacetyl rest \(2 days at the end of primary \@ 65F\)", "Use healthy pure yeast", "Practice good sanitation"]],
 
- ["Cardboard", ["Papery", "Stale", "Flavor", "Aroma"],nil,
+ ["Cardboard", ["Papery", "Stale", "Flavor", "Aroma"],"Never Appropriate",
   ["Aeration of hot wort", "Exposure of higher alcohols in finished beer to oxygen", "Old beer"],
   ["Avoid splashing hot wort", "Carefully package beer to avoid oxygen contact",
     "Serve beer in an appropriate amount of time"]],
@@ -91,32 +91,6 @@ CHARACTERISTICS = [["Acetaldehyde",["Green apples","Grassy"],"Light American Lag
  ["Sourness", ["Tart","Sour","Aroma","Flavor","Mouthfeel"],
    "Lambics, Flanders Ale, Berliner Weisse",
    ["Lactic Acid (from lactic acid bacteria)", "Acetobacter (from Acetic acid)"],
-   ["Practice proper sanitation", "Don't employ overlengthy mash or low temp mash"]],
-
- ["Good Head Retention",[""],
-   "",
-   [],
-   [], 2],
-   
- ["Clarity in a Beer",[""],
-  "",
-  [],
-  [], 2],
-
- ["A Proper Diactyl Level for Style"],[""],
-  "",
-  [],
-  [], 2]]
-#T3
- ["Body",[""],
-  "",
-  [],
-  [], 3],
-
- ["Mouthfeel",[""],
-  "",
-  [],
-  [], 3],
+   ["Practice proper sanitation", "Don't employ overlengthy mash or low temp mash"]]
+]
 end
-
-

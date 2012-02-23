@@ -1,6 +1,6 @@
 <script type="text/x-handlebars" data-template-name="pagination">
 <div class="pagination">
-<table>
+<table class="center">
   <tr>
     <td>
   <ul>
@@ -13,20 +13,18 @@
     <li class="pageOption next" data-page="1"><a href="#">Next</a></li>
   </ul>
     </td>
-    <td>
-      <div class="showHideAnswers" style="display: none">
-        {{#if BJCP.SampleQuiz.showingAnswers}}
-          {{#view BJCP.HideAnswers classBinding="btn" tagName="button"}}
-            <i class="icon-remove-sign"></i> Hide Answers
-          {{/view}}
-        {{else}}
-          {{#view BJCP.ShowAnswers classBinding="btn" tagName="button"}}
-            <i class="icon-ok-sign"></i> Show Answers
-          {{/view}}
-        {{/if}}
-      </div>
-    </td>
   </tr>
-</table>
+  <tr class="showHideAnswers">
+    <td style="text-align:center">
+  {{#if BJCP.SampleQuiz.showingAnswers}}
+    {{#view BJCP.HideAnswers classBinding="btn" tagName="button"}}
+      <i class="icon-remove-sign"></i> Hide Answers
+    {{/view}}
+  {{else}}
+    {{#view BJCP.ShowAnswers classBinding="btn" tagName="button"}}
+      <i class="icon-ok-sign"></i> Show Answers
+    {{/view}}
+  {{/if}}
+  </td></tr></table>
 </div>
 </script>

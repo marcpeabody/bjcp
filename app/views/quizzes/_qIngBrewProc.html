@@ -1,0 +1,1019 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  var nIngredients    =3;// Math.ceil(Math.random()*4); // random question choice
+  var nBrewingProcess =3;// Math.ceil(Math.random()*4); // random question choice
+
+  Ember.View.create({templateName: 'ingredients-'+nIngredients}).appendTo('.q7');
+  Ember.View.create({templateName: 'brewing-process-'+nBrewingProcess}).appendTo('.q9');
+});
+</script>
+<script type="text/x-handlebars" data-template-name="ingredients-1">
+<div>
+Discuss hops, describing their characteristics, how these characteristics are extracted, and at least four distinct beer styles with which the different varieties are normally associated. Address the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>3 points</td>
+    <td>Describe hop characteristics.</td>
+  </tr>
+  <tr>
+    <td>3 points</td>
+    <td>Discuss how hop characteristics are extracted.</td>
+  </tr>
+  <tr>
+    <td>4 points</td>
+    <td>Identify associated beer styles.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGridOne">
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    <td>
+      <textarea></textarea>
+      <div class="answers">
+      {{#answer}}
+        <ul>
+          <li>Active ingredient: Lupulin, gland of the female plant of Humulus Lupus</li>
+          <li>Oils and Resins: Resins contain Alpha and Beta acids, Oils contain aromatics</li>
+          <li>Humulone and Cohumulone</li>
+          <li>Alpha and Beta acids – Alpha cause the bittering to occur in beer, Beta do not isomerize, but contribute to aroma</li>
+          <li>Isomerization</li>
+          <li>IBUs/Formula: IBU = 7490 x Weight(oz) x AA% x U / V(gallons)</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">HOW CHARACTERISTICS EXTRACTED</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <table class="table table-bordered">
+          <tr>
+            <td>Antibacterial/Preservative</td>
+            <td>Boiling hops in wort.</td>
+          </tr>
+          <tr>
+            <td>Bitterness</td>
+            <td>Boiled for 60 minutes or longer from the end of the boil.  Hop utilization is about 25% in this phase.</td>
+          </tr>
+          <tr>
+            <td>Flavor</td>
+            <td>Boiled for 40-25 minutes from the end of the boil.  Hop utilization is about 10% in this phase.</td>
+          </tr>
+          <tr>
+            <td>Aroma</td>
+            <td>
+              <ul>
+                <li>Boiled for 15 minutes or less from the end of the boil.  May also be steeped by throwing them in after flame-out.  Hop utilization is 5% or less in this phase.</li>
+                <li>Dry Hopping.  Added to the secondary fermenter for aroma only.</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">BEER STYLES</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <table class="table table-bordered">
+          <tr>
+            <td>Hop Variety</td>
+            <td>Country</td>
+            <td>Characteristics</td>
+            <td>Associated Style</td>
+          </tr>
+          <tr>
+            <td>Hallertauer, Tettnanger, Spalt</td>
+            <td>Germany</td>
+            <td>Noble hops. Low in bitterness, high on aroma, spicy, floral</td>
+            <td>German Pilsner, Bocks, Alts</td>
+          </tr>
+          <tr>
+            <td>East Kent Goldings, Fuggles</td>
+            <td>England</td>
+            <td>English hops: Good for bittering, flavor and aroma, earthy, tobacco</td>
+            <td>English Pale Ale, Porter</td>
+          </tr>
+          <tr>
+            <td>Saaz</td>
+            <td>Czech Republic</td>
+            <td>Floral, mild, sweet</td>
+            <td>Bohemian Pilsner</td>
+          </tr>
+          <tr>
+            <td>Cascade, Centennial, Columbus, Amarillo</td>
+            <td>America (Pacific Northwest)</td>
+            <td>Citrusy, grapefruity</td>
+            <td>American IPA, American Pale Ale</td>
+          </tr>
+          <tr>
+            <td>Northern Brewer</td>
+            <td>Europe, America</td>
+            <td>Rustic, Woody</td>
+            <td>California Common</td>
+          </tr>
+          <tr>
+            <td>Styrian Goldings</td>
+            <td>Austria and Slovenia</td>
+            <td>Spicy</td>
+            <td>Witbier, Belgian Pale Ale</td>
+          </tr>
+        </table>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="ingredients-2">
+<div>
+Explain the malting process, identifying and describing the different types of malts by their color and the flavor they impart to the beer. Give at least four distinct styles with which specific malts are associated. Address the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>3 points</td>
+    <td>Describe the malting process.</td>
+  </tr>
+  <tr>
+    <td>3 points</td>
+    <td>Identify types of malt.</td>
+  </tr>
+  <tr>
+    <td>4 points</td>
+    <td>Identify associated beer styles.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGridOne">
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+<table class="table table-bordered">
+  <tr>
+    <td><strong>Phase</strong></td>
+    <td><strong>Explanation</strong></td>
+  <tr>
+    <td>Steeping</td>
+    <td>Barley soaked 50-65F water for 2-3 days</td>
+  </tr>
+  <tr>
+    <td>Germination</td>
+    <td>
+Allowed to sprout for 6-10 days at 50-70F.  Enzymes work on proteins and carbohydrates in 
+barley corn to convert insoluble starch chains to water-soluble starch.  Grains are raked or 
+agitated to aerate, reduce heat, and separate rootlets.
+    </td>
+  </tr>
+  <tr>
+    <td>Heating</td>
+    <td>Raised to 90F for 24 hours to promote enzyme activity, then to 120F for 12 hours to dry.</td>
+  </tr>
+  <tr>
+    <td>Kilning</td>
+    <td>Heated from 130F to 450F for various times depending on the type of malt desired.
+<br/>Temperature, moisture content, and time determine type of malt.
+     </td>
+  <tr>
+    <td>Cooling</td>
+    <td>Cooled to below 100F, then rootlets are removed.</td>
+  </tr>
+  <tr>
+    <td>Resting</td>
+    <td>Malt should be rested for 1 month or longer prior to mashing</td>
+  </tr>
+</table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">TYPES OF MALT AND BEER STYLES</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+<table class="table table-bordered">
+  <tr>
+    <td>Base Malts</td>
+    <td>
+      <ul>
+        <li>2 and 6 row barley</li>
+        <li>Fully modified</li>
+        <li>Kilned at 130-180F</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Straw</li>
+        <li>Gold</li>
+        <li>Yellow</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Bread crumbs</li>
+        <li>Crackers</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Pale Ales</li>
+        <li>Pilsner</li>
+        <li>Tripel</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Toasted Malts</td>
+    <td>
+      <ul><li>Victory, Vienna, Munich</li></ul>
+    </td>
+    <td>
+      <ul>
+        <li>Amber</li>
+        <li>Copper</li>
+        <li>Red</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Biscuit</li>
+        <li>Toasted Breadcrumb</li>
+        <li>Baking Bread</li>
+      </ul>
+    </td>
+    <td><ul><li>California Common</li></ul></td>
+  </tr>
+  <tr>
+    <td>Crystal Malts</td>
+    <td>
+      <ul>
+        <li>Various Lovibond-rated Crystal and Caramel</li>
+        <li>Fully modified</li>
+        <li>Heated at 50% moisture content to 150-170F</li>
+        <li>Mashes starches inside husk</li>
+        <li>Kilned to desired color</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Amber</li>
+        <li>Copper</li>
+        <li>Red</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Caramel</li>
+        <li>Toffee</li>
+        <li>Cookies</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Dark American Lager</li>
+        <li>Munich Dunkel</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Roast Malts</td>
+    <td>
+      <ul>
+        <li>Chocolate, Black, Roast</li>
+        <li>Under-modified</li>
+        <li>Kilned at 5% moisture</li>
+        <li>Kilned at 420-450F for up to 2 hours</li>
+        <li>No diastatic ability</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Brown</li>
+        <li>Black</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Chocolate</li>
+        <li>Coffee</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Stouts</li>
+        <li>Porters</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Non-Barley</td>
+    <td>
+      <ul>
+        <li>Wheat, Rye, Corn, Rice</li>
+        <li>May require more intensive mash process</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>May cause cloudiness</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Bready, wheat, corn</li>
+        <li>Minty</li>
+        <li>Peppery</li>
+      </ul>
+    </td>
+    <td>
+      <ul>
+        <li>Weizen</li>
+        <li>Roggenbier</li>
+        <li>American Lagers</li>
+        <li>Classic American Pilsner</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="ingredients-3">
+<div>
+Describe the stages of yeast development and give five distinct considerations in selecting the appropriate yeast strain for a given beer style. Address the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>5 points</td>
+    <td>Describe the stages of yeast development.</td>
+  </tr>
+  <tr>
+    <td>5 points</td>
+    <td>Provide five distinct selection considerations.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGridOne">
+  <tr>
+    <td class="gridRowLabel">STAGES</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <table class="table table-bordered">
+          <tr>
+            <td>Lag Phase</td>
+            <td>Make enzymes, use glycogen, acclimatize to environment</td>
+          </tr>
+          <tr>
+            <td>Growth Phase</td>
+            <td>Divide 1-3 times, absorb oxygen, make sterols</td>
+          </tr>
+          <tr>
+            <td>Low Krauesen</td>
+            <td>Anaerobic metabolism begins, foam on center of beer</td>
+          </tr>
+          <tr>
+            <td>High Krauesen</td>
+            <td>Most active portion of fermentation</td>
+          </tr>
+          <tr>
+            <td>Late Krauesen</td>
+            <td>Yeast metabolizes fermentation by-products</td>
+          </tr>
+        </table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">SELECTION CONSIDERATIONS</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <table class="table table-bordered">
+          <tr>
+            <td>Apparent Attenuation</td>
+            <td>
+              <ul>
+                <li>Less residual sweetness (lager yeast)</li>
+                <li>More alcohol</li>
+                <li>Less body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Alcohol Tolerance</td>
+            <td>
+              <ul>
+                <li>Greater Alcohol by Volume</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Flocculation</td>
+            <td>
+              <ul>
+                <li>Less time required for clearing</li>
+                <li>Potentially clearer beer</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Temperature</td>
+            <td>
+              <ul>
+                <li>Fruity esters for ale yeasts (higher temperatures)</li>
+                <li>Clean, ester-free beers for lager yeasts (lower temps)</li>
+                <li>Lager yeasts require longer time to finish</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Ester/Phenol Production</td>
+            <td>
+              <ul>
+                <li>Fruity flavors/aromas for yeasts high in ester production</li>
+                <li>Clean, crisp flavors/aromas for yeasts low in ester production</li>
+                <li>Spicy, clove or peppery phenols in Belgian styles and Bavarian Wheat beers</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Diacetyl Production</td>
+            <td>
+              <ul>
+                <li>Butter or Butterscotch flavors</li>
+                <li>Acceptable in low amounts in some styles</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="ingredients-4">
+<div>
+Discuss the importance of water characteristics in the brewing process and how water has played a role in the development of at least four distinct world beer styles. Address the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>5 points</td>
+    <td>Describe the importance of water characteristics in the brewing process.</td>
+  </tr>
+  <tr>
+    <td>5 points</td>
+    <td>Describe the role in the development of beer styles.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGridOne">
+  <tr>
+    <td class="gridRowLabel">CHARACTERISTICS</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+<table class="table table-bordered">
+  <tr>
+    <td>Boiling</td>
+    <td><ul><li>Removes chlorine</li><li>Kills bacteria</li></ul></td>
+  </tr>
+  <tr>
+    <td>Charcoal Filtration</td>
+    <td><ul><li>Removes chloramines</li></ul></td>
+  </tr>
+  <tr>
+    <td>Reverse Osmosis</td>
+    <td><ul><li>100% r/o not recommended - strips out needed minerals</li></ul></td>
+  </tr>
+  <tr>
+    <td>Minerals</td>
+    <td>
+      Essential for healthy fermentation
+      <ul>
+        <li>Iron</li>
+        <li>Manganese</li>
+        <li>Copper</li>
+        <li>Zinc</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Salts</td>
+    <td>
+      Commonly used: Gypsum (calcium sulfate), Calcium Carbonate (CaCO3), Magnesium Sulfate (MgSO4)
+      <br/>Cations
+      <ul>
+        <li>Sodium - Accentuates sweetness at low levels</li>
+        <li>Calcium - 10-20ppm needed for yeast nutrition</li>
+      </ul>
+      <ul>
+        <li>Bicarbonate - Neutralizes acids in dark malt</li>
+        <li>Chloride - Accentuates sweetness at low levels</li>
+        <li>Sulfate - Accentuates hop bitterness</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Acids</td>
+    <td>
+      Used to reduce alkalinity (if necessary)
+      <ul>
+        <li>Lactic acid</li>
+        <li>Sulfuric acid</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">BEER STYLE ROLE</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+<table class="table table-bordered">
+  <tr>
+    <td>Pilsen</td>
+    <td>Bohemian Pilsner</td>
+    <td>Soft, low mineral content across the board, tends to decrease the
+        perception of hop bitterness. The most ion-free brewing water in the
+        world. Decoction mashing needed due to lack of minerals to aid
+        enzymatic reactions.
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="2">Munich</td>
+    <td>Oktoberfest</td>
+    <td>High alkaline and carbonate water balances acidifying effect of dark malts.</td>
+  </tr>
+  <tr>
+    <td>Dunkel</td>
+    <td>
+High in carbonates, Carbonates increase color extraction during sparging 
+which makes production of light colored worts difficult, hence the 
+development of Munich Dunkel. Waters high in carbonate tend to be 
+alkaline and make a shift to a more acidic pH, favorable for mash 
+conditions, difficult.  Additions of small amounts of dark roast malts help 
+shift the pH to more acidic conditions.  This again favors the Dunkel 
+style.
+    </td>
+  </tr>
+  <tr>
+    <td>Vienna</td>
+    <td>Vienna Lager</td>
+    <td>Hard, carbonate-rich water extracts the color from Vienna malt.</td>
+  </tr>
+  <tr>
+    <td>Burton-on-Trent</td>
+    <td>English Bitters</td>
+    <td>Extremely hard water - CaSO4 (calcium sulfate) & HCO3- (hydrocarbonate),
+        accentuates bitterness, gives drier and fuller flavor,
+        and emphasizes hop bitterness.
+    </td>
+  </tr>
+  <tr>
+    <td>Dublin</td>
+    <td>Dry Stout</td>
+    <td>
+High in Ca++(Calcium) & HCO3-(Hydrocarbonate), similar to Munich 
+but slightly higher in mineral content across the board.  Waters high in 
+carbonate tend to be alkaline and make a shift to a more acidic pH, 
+favorable for mash conditions, difficult.  Additions of small amounts of 
+dark roast malts help shift the pH to more acidic conditions
+    </td>
+  </tr>
+  <tr>
+    <td>Edinburgh</td>
+    <td>Scottish Ales</td>
+    <td>Local water often lends a "smoky" character when combined with
+        yeast and lower fermentation temperatures.
+    </td>
+  </tr>
+  <tr>
+    <td>London</td>
+    <td>Porter</td>
+    <td>High alkaline and carbonate water balances acidifying effect
+        of dark malts. Very similar to Dublin.
+    </td>
+  </tr>
+</table>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="brewing-process-1">
+<div>
+  Discuss the brewing techniques and how they affect beer:
+  <ul>
+    <li>a) kräusening</li>
+    <li>b) adding gypsum</li>
+    <li>c) fining</li>
+  </ul>
+<table class="table table-bordered">
+  <tr>
+    <td>5 points</td>
+    <td>Describe each characteristic.</td>
+  </tr>
+  <tr>
+    <td>5 points</td>
+    <td>Identify the effect on the finished beer.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGrid">
+  <tr>
+    <td class="gridRowLabel">CHARACTERISTICS</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        The addition of a portion of actively fermenting wort to a
+        wort that has finished fermenting.
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Gypsum (calcium sulfate)</li>
+          <li>Common brewing salt</li>
+          <li>Key salt for "Burtonization"</td>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>The addition of a compound to wort or beer</li>
+          <li>Added to the boil for hot break: Irish moss or Whirlfloc</li>
+          <li>Added to the secondary: Isinglass, Bentonite, Polyclar, Sparkloid</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">EFFECT ON BEER</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>To provide "natural" carbonation</li>
+          <li>Reduces residual diacetyl</li>
+          <li>Used for most German and American lagers</li>
+          <li>May contribute acetaldehyde ("green" beer character) in the finished beer</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Increases Ca++ cation and SO4-- anion</li>
+          <li>Calcium helps yeast metabolism in proper levels</li>
+          <li>Calcium allows wort to acidify</li>
+          <li>Critical to proper enzyme function</li>
+          <li>Sulfate lends a soft edge to hop bitterness by
+              affecting alpha-acid extraction and creating
+              a synergistic perception effect.
+          </li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Coagulates proteins to clarify beer</li>
+          <li>Precipitate tannins and/or proteins that
+              may cause haze or flavor instability
+          </li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="brewing-process-2">
+<div>
+What is meant by the terms hot break and cold break? What is happening and why are they important in brewing and the quality of the finished beer? Address the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>3 points</td>
+    <td>Describe each term.</td>
+  </tr>
+  <tr>
+    <td>3 points</td>
+    <td>Identify what is happening.</td>
+  </tr>
+  <tr>
+    <td>4 points</td>
+    <td>Identify why it is important.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGridTwo">
+  <tr>
+    <td></td>
+    <td style="text-align: center"><strong>HOT BREAK</strong></td>
+    <td style="text-align: center"><strong>COLD BREAK</strong></td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        Flocculation of proteins and other materials during the boil
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        Flocculation of proteins and other materials during cooling
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">WHAT'S HAPPENING</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Begins forming in first 5-20 minutes of boil - 212 F</li>
+          <li>Consists primarily of proteins responsible for chill haze</li>
+          <li>pH of 5.2 ideal for hot break formation</li>
+          <li>Achieved by full, rolling boil of at least 60 minutes</li>
+          <li>Boiling for 2 hours promotes maximum hot break</li>
+          <li>Best promoted with quicker temperature rise</li>
+          <li>Controversy regarding removal during boil or not</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Begins forming around 140 F</li>
+          <li>Consists of protein-polyphenols (tannin) complexes</li>
+          <li>Higher level of carbohydrates than hot break</li>
+          <li>Must be rapidbly cooled below 70 F for best results</li>
+          <li>Some cold break left in fermenter provides yeast nutrients</li>
+          <li>Removing Cold Break prior to ferment reduces fusels and sulfur flavors</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">WHY IMPORTANT</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Reduces protein (chill) haze</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Facilitates clear beer</li>
+          <li>Minimizes DMS</li>
+          <li>Reduces fusels and sulfur flavors</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="brewing-process-3">
+<div>
+Describe and explain the role of diastatic and proteolytic enzymes in the brewing process and how they affect the characteristics of the finished beer. Address the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>5 points</td>
+    <td>Describe what they are.</td>
+  </tr>
+  <tr>
+    <td>5 points</td>
+    <td>Describe how they affect the finished beer.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGrid">
+  <tr>
+    <td></td>
+    <td style="text-align: center"><strong>Diastatic Enzymes</strong></td>
+    <td colspan="2" style="text-align: center"><strong>Proteolytic Enzymes</strong></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td style="text-align: center"></td>
+    <td style="text-align: center"><strong>Beta Amylase</strong></td>
+    <td style="text-align: center"><strong>Alpha Amylase</strong></td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Works on proteins</li>
+          <li>113-127F (aka "Protein" rest)</li>
+          <li>Proteinase breaks down proteins into smaller fractions such as
+              polypeptides - necessary for good head retention
+          </li>
+          <li>Peptidase breaks down polypeptides into peptides and amino
+              acids, essential for proper yeast growth and development
+          </li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Works on starches</li>
+          <li>130-150F (aka "Saccharification")</li>
+          <li>Starches are gelatinized</li>
+          <li>Beta amylase enzymes break off maltose units from reducing ends of starches</li>
+          <li>Unable to break down largest units of starches</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Works on starches</li>
+          <li>149-158F (aka "Saccharification")</li>
+          <li>Alpha amylase enzymes break 1-4 links from starches at random</li>
+          <li>Unable to break down into smallest units of starches</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">EFFECT ON BEER</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Reduces cloudiness</li>
+          <li>Too long a protein rest can reduce head</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Creates more fermentable wort</li>
+          <li>Thinner bodied beer</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Creates more dextrinous wort</li>
+          <li>Thicker bodied beer</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="brewing-process-4">
+<div>
+Explain what happens during the mashing process, including times and temperatures as appropriate. Describe three different mashing techniques and the advantages and disadvantages of each. Address the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>5 points</td>
+    <td>Describe the process.</td>
+  </tr>
+  <tr>
+    <td>3 points</td>
+    <td>Identify three techniques.</td>
+  </tr>
+  <tr>
+    <td>2 points</td>
+    <td>Identify advantages and disadvantages of each.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGrid">
+  <tr>
+    <td class="gridRowLabel">TECHNIQUE</td>
+    <td>
+      <input type="text">
+      <div class="answers">Infusion Mash</div>
+      {{answer raw="Infusion Mash"}}
+    </td>
+    <td>
+      <input type="text">
+      {{answer raw="Step Mash"}}
+    </td>
+    <td>
+      <input type="text">
+      {{answer raw="Decoction Mash"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul><li>Mixing grain with a single temperature of water and resting at that temp for the entire mash</li></ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Masing in with a low temp of water</li>
+          <li>Raising mash temps to achieve conversion goals</li>
+          <li>Temp raised by adding boiling water or direct heat</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Removal of a thick third of mash</li>
+          <li>Raise to brief saccharification rest</li>
+          <li>Boil for 15-30 minutes</li>
+          <li>Mixing it back into the main mash</li>
+          <li>Repeat up to 3 times</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">ADVANTAGES</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul><li>Requires minimum of labor, equipment, energy and time</li></ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Allows flexibility in use of different temp steps</li>
+          <li>Under-modified malts may by used</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Explode starch granules</li>
+          <li>Breaks down the protein matrix in under-modified malt</li>
+          <li>Improves extraction efficiency</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DISADVANTAGES</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul><li>Prohibits the use of under-modified malt or adjuncts</li></ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul><li>Requires more resources (labor, time, equipment)</li></ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Most resource intensive (time, labor, equipment)</li>
+          <li>May extract higher levels of tannins and DMS precursors from grain husks</li>
+        </ul>
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+</script>

@@ -94,25 +94,16 @@ jQuery(document).ready(function($){
     $('.content').html($quiz);
   };
 
-  BJCP.TrueFalse = Ember.View.extend({
+  BJCP.PillRadio = Ember.View.extend({
     click: function(){
       var $li = this.$().parent('li');
-      console.log($li)
       $li.addClass('active');
       $li.siblings().removeClass('active');
     }
   });
+//setTimeout(function(){$('.pageOption[data-page="1"]:first').click();}, 1000);
 });
 </script>
-<style>
-.point{
-  cursor: pointer;
-}
-.hidden{
-  display:none;
-}
-</style>
-
 <script type="text/x-handlebars" data-template-name="purpose-quiz">
   List three primary purposes of the BJCP as listed on
   <a href="http://www.bjcp.org" target="_blank">http://www.bjcp.org</a>
@@ -120,8 +111,8 @@ jQuery(document).ready(function($){
     BJCP Study Guide</a>.
 <table>
   {{#each BJCP.Questions.purposes}}
-  <tr><td>{{number}}) <input class="purpose purpose{{number}}"type="text"/>
-    <span class="answers">{{purpose}}</span>
+  <tr><td>{{number}}) <input class="purpose purpose{{number}}" type="text"/>
+    {{answer tagName="span" val="purpose"}}
   </td></tr>
   {{/each}}
 </table>
@@ -138,40 +129,34 @@ jQuery(document).ready(function($){
   </tr>
   {{#each BJCP.Questions.judgeLevels}}
   <tr>
-    <td><input type="text" style="width: 150px"/><div class="answer">{{level}}</div></td>
-    <td><input type="text" style="width: 80px"/><div class="answer">{{min_score}}</div></td>
-    <td><input type="text" style="width: 80px"/><div class="answer">{{min_points}}</div></td>
-    <td><input type="text" style="width: 80px"/><div class="answer">{{judge_points}}</div></td>
+    <td><input type="text" style="width: 150px"/>{{answer val="level"}}</td>
+    <td><input type="text" style="width: 80px"/>{{answer val="min_score"}}</td>
+    <td><input type="text" style="width: 80px"/>{{answer val="min_points"}}</td>
+    <td><input type="text" style="width: 80px"/>{{answer val="judge_points"}}</td>
     <td nowrap>
       <ul class="nav nav-pills" style="display: inline">
-        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}Yes{{/view}}</li>
-        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}No{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}Yes{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}No{{/view}}</li>
       </ul>
-      <div class="answer">{{gm_required}}</div>
+      {{#answer}}{{#if gm_required}} Yes {{else}} No {{/if}}{{/answer}}</div>
     </td>
   </tr>
   {{/each}}
 </table>
 </script>
 <script type="text/x-handlebars" data-template-name="tf-quiz">
-<div class='question'>
-  <span class='status'></span>
-  <form class='tfQuestionsForm'>
-{{BJCP.Questions.numberCorrect}}
-{{BJCP.Questions.points}}
+<div>
 <table>
     {{#each BJCP.Questions.questions}}
   <tr>
     <td nowrap>
       <ul class="nav nav-pills" style="display: inline">
-        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}True{{/view}}</li>
-        <li class="point">{{#view BJCP.TrueFalse tagName="a" attrHref="#"}}False{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}True{{/view}}</li>
+        <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}False{{/view}}</li>
       </ul>
     </td>
     <td>
-      <span class='answers'>
-        {{#if isTrue}} True {{else}} False {{/if}}
-      </span>
+      {{#answer}}{{#if isTrue}} True {{else}} False {{/if}}{{/answer}}
       <span class='questionText'>{{question}}</span>
     </td>
   </tr>

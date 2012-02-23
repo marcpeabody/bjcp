@@ -60,12 +60,22 @@ a {
   color: #666;
 }
 
-table.styleCompareGrid td {
+table.styleCompareGrid td,
+table.styleCompareGridOne td,
+table.styleCompareGridTwo td {
   vertical-align: top;
 }
 table.styleCompareGrid textarea {
   height: 80px;
   width: 280px;
+}
+table.styleCompareGridOne textarea {
+  height: 100px;
+  width: 800px;
+}
+table.styleCompareGridTwo textarea {
+  height: 100px;
+  width: 400px;
 }
 table.styleCompareGrid input {
   width: 280px;
@@ -78,4 +88,11 @@ table td.gridRowLabel {
 
 .answers {
   display: none;
+}
+
+.center {
+  margin: auto;
+}
+.point{
+  cursor: pointer;
 }

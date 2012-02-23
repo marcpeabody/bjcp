@@ -1,0 +1,301 @@
+<script type="text/javascript">
+jQuery(document).ready(function($){
+  var n = Math.ceil(Math.random()*3); // random question choice
+  BJCP.Characteristics = Ember.Object.create({
+    characteristics: [],
+    setup: function(){
+      var self = this;
+      if(n === 1){
+        $.ajax({url: '/characteristics/sample', data: {limit: 3}, success: function(data){
+          self.set('characteristics', _.map(data, function(x){
+            return Ember.Object.create(x);
+          }));
+        }});
+      }
+    }
+  });
+  BJCP.Characteristics.setup();
+
+  Ember.View.create({templateName: 'characteristics-'+n, characteristics: BJCP.Characteristics}).appendTo('.q5');
+});
+</script>
+
+<script type="text/x-handlebars" data-template-name="characteristics-1">
+{{#with characteristics}}
+<div>
+Describe and discuss the following beer characteristics. What causes them and how are they avoided and controlled? Are they ever appropriate and if so, in what beer styles?
+<table class="table table-bordered">
+  <tr>
+    <td>3 points</td>
+    <td>Describe each characteristic.</td>
+  </tr>
+  <tr>
+    <td>4 points</td>
+    <td>Identify the causes and controls for each characteristic.</td>
+  </tr>
+  <tr>
+    <td>3 point</td>
+    <td>Identify appropriate/inappropriate styles.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGrid">
+  <tr>
+    <td></td>
+    {{#each characteristics}}
+      <td style="text-align: center"><strong>{{name}}</strong></td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    {{#each characteristics}}
+      <td>
+        <textarea></textarea>
+        {{answer val="descriptions"}}
+      </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CAUSES</td>
+    {{#each characteristics}}
+      <td>
+        <textarea></textarea>
+        {{answer val="causes"}}
+      </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CONTROLS</td>
+    {{#each characteristics}}
+      <td>
+        <textarea></textarea>
+        {{answer val="controls"}}
+      </td>
+    {{/each}}
+  </tr>
+  <tr>
+    <td class="gridRowLabel">APPROPRIATE STYLES</td>
+    {{#each characteristics}}
+      <td>
+        <textarea></textarea>
+        {{answer val="appropriate_styles"}}
+      </td>
+    {{/each}}
+  </tr>
+</table>
+{{/with}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="characteristics-2">
+<div>
+Explain how the brewer gets the characteristics in his/her beer:
+ <ul>
+   <li>a) good head retention</li>
+   <li>b) clarity in a beer</li>
+   <li>c) a proper diacetyl level for style</li>
+ </ul>
+
+<table class="table table-bordered">
+  <tr>
+    <td>3 points</td>
+    <td>Describe each characteristic.</td>
+  </tr>
+  <tr>
+    <td>4 points</td>
+    <td>Identify the causes and controls for each characteristic.</td>
+  </tr>
+  <tr>
+    <td>3 point</td>
+    <td>Identify appropriate/inappropriate styles.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGrid">
+  <tr>
+    <td></td>
+    <td style="text-align: center"><strong>Good Head Retention</strong></td>
+    <td style="text-align: center"><strong>Clarity</strong></td>
+    <td style="text-align: center"><strong>Proper Diacetyl Level for Style</strong></td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    <td>
+      <textarea></textarea>
+    </td>
+    <td>
+      <textarea></textarea>
+    </td>
+    <td>
+      <textarea></textarea>
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CAUSES</td>
+    <td>
+      <textarea></textarea>
+    </td>
+    <td>
+      <textarea></textarea>
+    </td>
+    <td>
+      <textarea></textarea>
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CONTROLS</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+ Answers here should focus on medium length proteins, but dextrins do play a minor role.  
+ The breakdown of proteins occurs in the mash, so there should be a description of  proteolysis
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <ul>
+          <li>Use a protein rest in the mash (122 F for 15-30 minutes)</li>
+          <li>Boil long enough for a good hot break (60 minutes minimum) </li>
+          <li>Chill rapidly enough for a good cold break</li>
+          <li>Use fining agents</li>
+          <li>Watch your sanitation. There are also starch and bacterial hazes, but these are rare compared to permanent and chill haze.)</li>
+        </ul>
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+       The level of diacetyl in the beer is most strongly affected by the choice of yeast and the 
+       fermentation temperature.  All yeasts produce diacetyl, but some are more effective at reducing it 
+       than others.  Cold secondary fermentations can inhibit the ability of yeast to reduce diacetyl; so 
+       many lager brewers employ a diacetyl rest (raising the temperature of a lagering beer to room 
+       temperature for 1-2 days).  Premature racking from the yeast can keep the diacetyl level 
+       abnormally high.
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">APPROPRIATE STYLES</td>
+    <td>
+      <textarea></textarea>
+    </td>
+    <td>
+      <textarea></textarea>
+    </td>
+    <td>
+      <textarea></textarea>
+    </td>
+  </tr>
+</table>
+</script>
+
+<script type="text/x-handlebars" data-template-name="characteristics-3">
+<div>
+What are body and mouthfeel? Explain how the brewer controls body and mouthfeel in his/her beer. Cover the following topics:
+<table class="table table-bordered">
+  <tr>
+    <td>5 points</td>
+    <td>Describe each characteristic.</td>
+  </tr>
+  <tr>
+    <td>5 points</td>
+    <td>Identify the causes and controls for both.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGridTwo">
+  <tr>
+    <td></td>
+    <td style="text-align: center"><strong>Body</strong></td>
+    <td style="text-align: center"><strong>Mouthfeel</strong></td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">DESCRIBE</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+       Body is a sub-characteristic of Mouthfeel
+      {{/answer}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        <strong>Mouthfeel</strong> is the tactile character of beer, how it “feels” in your mouth.  It has five sub-components: <em><strong>Body</strong></em>, <em><strong>Alcohol Warmth</strong></em>, <em><strong>Creaminess</strong></em>, <em><strong>Astringency</strong></em> and <em><strong>Carbonation</strong></em>.
+        Primarily controlled by the amount of dextrins and medium length proteins in the finished beer.
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CAUSES</td>
+    <td>
+      <textarea></textarea>
+      {{answer raw="(see below)"}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{answer raw="(see below)"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">CONTROLS</td>
+    <td>
+      <textarea></textarea>
+      {{answer raw="(see below)"}}
+    </td>
+    <td>
+      <textarea></textarea>
+      {{answer raw="(see below)"}}
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3">
+{{#answer}}
+(use your score sheet as a reference)
+<table>
+  <tr><td>
+    <strong>Body</strong> is the viscosity of a beer.  On a viscosity scale of water to molasses, water is a “thin” body, and molasses would be a “thick” body.
+    <ul>
+      <li>Increasing unfermented dextrins will give the perception of a “bigger, thicker” body – use more grist, mash hotter (153 F)</li>
+      <li>Reducing unfermented dextrins will give the perception of a “smaller, thinner” body – use less grist, mash cooler (148 F)</li>
+    </ul>
+  </td></tr>
+
+  <tr><td>
+    <strong>Alcohol Warmth</strong> is the sensation of warmth or burning you feel as the beer goes down your throat.  Whiskey would be at the high end of alcohol warmth.
+    <ul>
+      <li>Reduce fermentables, ferment cooler to reduce alcohol warmth and fusels</li>
+      <li>Increase fermentables, ferment warmer to increase alcohol warmth and fusels</li>
+    </ul>
+  </td></tr>
+
+  <tr><td>
+    <strong>Creaminess</strong> is the sensation of “smoothness” or “roundness” in a beer. It is the opposite of “Crispness”.
+    <ul>
+      <li>A percentage of Oats in the grist can cause a creamy sensation.</li>
+    </ul>
+  </td></tr>
+
+  <tr><td>
+    <strong>Astringency</strong> is the puckery sensation you get from a beer.
+    <ul>
+      <li>Primarily caused by tannins (sometimes mistakenly attributed to hop bitterness)</li>
+      <li>Can also be caused by a high percentage of roast or dark malt in the grist</li>
+      <li>Can also be cause by lingering hop bitterness</li>
+      <li>Reduce tannins by: - Keeping sparge under 168F - Ending sparge when gravity of runoff reaches 1.004</li>
+    </ul>
+  </td></tr>
+
+  <tr><td>
+    <strong>Carbonation</strong> is the sparkling sensation you feel in your mouth, or in extreme cases, in your nose.  Champagne or Seven-Up soda would be at the high end of carbonation.
+    <ul>
+      <li>To increase bottle carbonation, add more priming sugar and/or a small amount of fresh yeast at bottling.</li>
+      <li>To increase carbonation in kegging, increase the CO2 pressure.</li>
+      <li>Unwanted high carbonation can be decreased by completely fermenting the beer prior to packaging.</li>
+    </ul>
+  </td></tr>
+</table>
+{{/answer}}
+    </td>
+  </tr>
+</table>
+</script>

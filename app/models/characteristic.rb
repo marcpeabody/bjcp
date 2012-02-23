@@ -1,6 +1,6 @@
 class Characteristic < ActiveRecord::Base
-  def ever_appropriate?
-    appropriate_styles.present?
+  def self.sample(n)
+    # RANDOM() assumes postgres, otherwise, try RAND()
+    self.unscoped.all(:limit => n, :order => 'RANDOM()')
   end
 end
-
