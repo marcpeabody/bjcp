@@ -92,6 +92,7 @@ table td.gridRowLabel {
 
 .center {
   margin: auto;
+  text-align: center;
 }
 .point{
   cursor: pointer;

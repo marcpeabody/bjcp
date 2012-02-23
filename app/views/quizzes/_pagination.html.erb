@@ -26,6 +26,17 @@ jQuery(document).ready(function($){
       {{#view BJCP.HideAnswers classBinding="btn" tagName="button"}}
         <i class="icon-remove-sign"></i> Hide Answers
       {{/view}}
+      <table class="table-bordered" style="margin-bottom: 30px"><tr><td>
+        Answers are taken from:
+        </td></tr>
+        <tr><td>
+        <ul>
+          <li><a href="http://www.bjcp.org/docs/BJCPExamForDummies.pdf" target="_blank">Al Boyce's The BJCP Exam for Dummies</a></li>
+          <li><a href="http://www.bjcp.org/docs/mastering.pdf" target="_blank">Gordon Strong's Mastering the BJCP Exam</a></li>
+          <li><a href="http://www.bjcp.org/study.php" target="_blank">The BJCP Study Guide</a></li>
+        </ul>
+      </em>
+      </td></tr></table>
     {{else}}
       {{#view BJCP.ShowAnswers classBinding="btn" tagName="button"}}
         <i class="icon-ok-sign"></i> Show Answers
