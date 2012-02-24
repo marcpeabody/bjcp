@@ -106,3 +106,6 @@ table td.gridRowLabel {
 .dropdown-menu {
   margin-bottom: 8px;
 }
+.right {
+  text-align: right;
+}

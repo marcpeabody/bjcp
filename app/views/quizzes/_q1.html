@@ -26,11 +26,13 @@ jQuery(document).ready(function($){
       $.ajax({url: '/judge_procedure/sample', data: {limit: 15}, success: function(data){
         self.set('questions', _.map(data, function(x){
           x['isTrue'] = (x.answer === 'T');
+          x['trueAlign'] = (x.answer === 'T' ? 'left' : 'right');
           return Ember.Object.create(x);
         }));
       }});
       $.ajax({url: '/judge_levels/all_levels', data: {}, success: function(data){
         self.set('judgeLevels', _.map(data, function(x){
+          x['trueAlign'] = (x.gm_required ? 'left' : 'right');
           return Ember.Object.create(x);
         }));
       }});
@@ -76,18 +78,28 @@ jQuery(document).ready(function($){
   </tr>
   {{#each BJCP.Questions.judgeLevels}}
   <tr>
-    <td><input type="text" style="width: 150px"/>{{answer val="level"}}</td>
-    <td><input type="text" style="width: 80px"/>{{answer val="min_score"}}</td>
-    <td><input type="text" style="width: 80px"/>{{answer val="min_points"}}</td>
-    <td><input type="text" style="width: 80px"/>{{answer val="judge_points"}}</td>
+    <td><input type="text" style="width: 150px"/></td>
+    <td><input type="text" style="width: 80px"/></td>
+    <td><input type="text" style="width: 80px"/></td>
+    <td><input type="text" style="width: 80px"/></td>
     <td nowrap>
       <ul class="nav nav-pills" style="display: inline">
         <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}Yes{{/view}}</li>
         <li class="point">{{#view BJCP.PillRadio tagName="a" attrHref="#"}}No{{/view}}</li>
       </ul>
+    </td>
+  </tr>
+  {{#answer}}
+  <tr>
+    <td>{{level}}</td>
+    <td>{{min_score}}</td>
+    <td>{{min_points}}</td>
+    <td>{{judge_points}}</td>
+    <td {{bindAttr class="trueAlign"}}>
       {{#answer}}{{#if gm_required}} Yes {{else}} No {{/if}}{{/answer}}</div>
     </td>
   </tr>
+  {{/answer}}
   {{/each}}
 </table>
 </script>
@@ -103,10 +115,16 @@ jQuery(document).ready(function($){
       </ul>
     </td>
     <td>
-      {{#answer}}{{#if isTrue}} True {{else}} False {{/if}}{{/answer}}
       <span class='questionText'>{{question}}</span>
     </td>
   </tr>
+  {{#answer}}
+  <tr>
+    <td {{bindAttr class="trueAlign"}}>
+      {{#answer}}{{#if isTrue}} True {{else}} False {{/if}}{{/answer}}
+    </td>
+  </tr>
+  {{/answer}}
     {{/each}}
 </table>
 </div>

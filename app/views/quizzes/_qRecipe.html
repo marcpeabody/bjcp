@@ -1,9 +1,311 @@
 <script type="text/javascript">
 jQuery(document).ready(function($){
-  Ember.View.create({templateName: 'all-grain-recipe'}).appendTo('.q3');
+  BJCP.AllGrainStyle = Ember.Object.create({});
+  $.ajax({url: '/all_grain_recipe',
+          data: {},
+          success: function(data){
+    data = data[0];
+    data['bigBeer'] = data['og'] === '1.075';
+    data['ale'] = data['ale_lager'] === 'Ale';
+    data['weizen'] = data['name'] === 'Weizen/Weissbier';
+    data['singleInfusion'] = data['mash_type'] === 'Single Infusion';
+    BJCP.AllGrainStyle.set('style', Ember.Object.create(data));
+  }});
+  Ember.View.create({templateName: 'all-grain-recipe', style: BJCP.AllGrainStyle}).appendTo('.q3');
 });
 </script>
 
 <script type="text/x-handlebars" data-template-name="all-grain-recipe">
-  All-Grain Recipe...
+{{#with style.style}}
+<div>
+Describe and discuss the following beer characteristics. What causes them and how are they avoided and controlled? Are they ever appropriate and if so, in what beer styles?
+<table class="table table-bordered">
+  <tr>
+    <td>1 points</td>
+    <td>Target statistics (starting specific gravity, final specific gravity, and bitterness in IBUs or HBUs) and color (as SRM or a textual description of the color).</td>
+  </tr>
+  <tr>
+    <td>2 points</td>
+    <td>Batch size, ingredients (grist, hops, water, and yeast) and their quantities.</td>
+  </tr>
+  <tr>
+    <td>3.5 point</td>
+    <td>Mashing, boil, fermentation, packaging, and other relevant brewing procedures.</td>
+  </tr>
+  <tr>
+    <td>3.5 point</td>
+    <td>Explain how the recipe fits the style's characteristics for aroma, appearance, flavor, mouthfeel, and other significant aspects of the style; and describe how the ingredients and processes used impact this style.</td>
+  </tr>
+</table>
+</div>
+<table class="styleCompareGridOne">
+  <tr>
+    <td></td>
+    <td style="text-align: center"><strong>{{name}}</strong></td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">OG</td>
+    <td>
+      <input type="text"/> {{answer val="og" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">FG</td>
+    <td>
+      <input type="text"/> {{answer val="fg" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">IBUs</td>
+    <td>
+      <input type="text"/> {{answer val="ibu" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">SRM</td>
+    <td>
+      <input type="text"/> {{answer val="srm" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Batch Size</td>
+    <td>
+      <input type="text"/> {{answer raw="5 Gallons" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Grist Efficiency</td>
+    <td>
+      <input type="text"/> {{answer raw="75%" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Grain Bill</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="grain_bill"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Hops AA%</td>
+    <td>
+      <input type="text"/> {{answer raw="5%" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Hops Assumed Utilization</td>
+    <td>
+      <textarea></textarea>
+      {{answer raw="25% Bittering, 5% Flavor, 0% Aroma"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Hop Additions</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        Suggested style: {{hop_variety}}<br/>
+        <table class="table-bordered">
+          <tr><td>60min - (your hop) {{bittering_amt}} bittering</td></tr>
+          {{#if flavor_amt}}
+          <tr><td>20min - (your hop) {{flavor_amt}} flavor</td></tr>
+          {{/if}}
+          {{#if aroma_amt}}
+          <tr><td>5min  - (your hop) {{aroma_amt}} aroma</td></tr>
+          {{/if}}
+        </table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Water</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        {{#if bigBeer}}
+          13.5 total gallons of water<br/>
+          5.25 gallons of strike water at 163F for a mash temperature of 150F
+          8.25 gallons of sparge water at 168F, acidified with 1.5tsp phosphoric acid
+        {{else}}
+          9 total gallons of water<br/>
+          3.5 gallons of strike water at 163F for a mash temperature of 150F
+          5.5 gallons of sparge water at 168F, acidified with 1tsp phosphoric acid
+        {{/if}}
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Yeast</td>
+    <td>
+      <input type="text"/> {{answer val="yeast" tagName="span"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Mashing Schedule</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+      <table>
+        <tr>
+          <td>Technique:</td>
+          <td>
+{{#if singleInfusion}}
+  {{mash_type}}
+{{else}}
+  The CLASSIC mash style used for this beer would be the
+  <strong>{{mash_type}}</strong> mash technique, but due to the 
+  highly modified malts available today, I’ll use the
+  Single Infusion mash.
+{{/if}}
+         </td>
+       </tr>
+       <tr>
+         <td>Rests:</td>
+         <td>
+           <table>
+             <tr>
+               <td>Acid Rest</td>
+               <td>95-120F for 60-120 minutes</td>
+             </tr>
+             <tr>
+               <td>Protein Rest</td>
+               <td>122F for 20 minutes</td>
+             </tr>
+             <tr>
+               <td>Beta Amylase Saccharification Rest</td>
+               <td>130-150F for 30 minutes</td>
+             </tr>
+             <tr>
+               <td>Alpha Amylase Saccharification Rest</td>
+               <td>149-158F</td>
+             </tr>
+             <tr>
+               <td>Mash-Out</td>
+               <td>168F for 15 minutes</td>
+             </tr>
+           </table>
+         </td>
+        </tr>
+        <tr>
+          <td>Vorlauf:</td>
+          <td>until clear</td>
+        </tr>
+        <tr>
+          <td>Sparge/Lauter:</td>
+          <td>(see water schedule above)</td>
+        </tr>
+      </table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Boil, Finings, and Chill</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+      <table>
+        <tr>
+          <td>Boil:</td>
+          <td>75 minutes, full rolling boil to facilitate hot break,
+              adding hops according to schedule above.
+          </td>
+        </tr>
+        <tr>
+          <td>Finings:</td>
+          <td>{{#if weizen}}NO FININGS due to desired cloudiness in finished beer
+            {{else}}Irish Moss, added at 5 minutes before the end of the boil
+            {{/if}}</td>
+        </tr>
+        <tr>
+          <td>Chill:</td>
+          <td>Counter-flow method, to facilitate cold break, to
+              {{#if ale}}70F{{else}}45F{{/if}}
+              prior to pitching {{#if ale}}ale{{else}}lager{{/if}} yeast
+          </td>
+        </tr>
+      </table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Fermentation</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+      <table>
+      {{#if ale}}
+        <tr>
+          <td>Primary:</td>
+          <td>68F for 7 days</td>
+        </tr>
+        <tr>
+          <td>Secondary:</td>
+          <td>68F for 21 days</td>
+        </tr>
+      {{else}}
+        <tr>
+          <td>Primary:</td>
+          <td>55F for 14 days</td>
+        </tr>
+        <tr>
+          <td>Diacetyl Rest:</td>
+          <td>65F for 2 days</td>
+        </tr>
+        <tr>
+          <td>Secondary:</td>
+          <td>32F for 60 days</td>
+        </tr>
+      {{/if}}
+      </table>
+      {{/answer}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Packaging</td>
+    <td>
+      <input type="text"/>
+      {{answer raw="Bottle condition with 3/4 cup of corn sugar"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">AROMA</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="aroma"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">APPEARANCE</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="appearance"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">FLAVOR</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="flavor"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">MOUTHFEEL</td>
+    <td>
+      <textarea></textarea>
+      {{answer val="mouthfeel"}}
+    </td>
+  </tr>
+  <tr>
+    <td class="gridRowLabel">Style Impact</td>
+    <td>
+      <textarea></textarea>
+      {{#answer}}
+        The malt, hops, and yeast used in this recipe work
+        together to produce the aroma, appearance, flavor,
+        and mouthfeel representative of a {{name}} style.
+      {{/answer}}
+    </td>
+  </tr>
+</table>
+{{/with}}
 </script>

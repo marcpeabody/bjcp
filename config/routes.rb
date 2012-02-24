@@ -5,6 +5,7 @@ Bjcp::Application.routes.draw do
   match 'styles/styles_with_city' => 'styles#styles_with_city'
   match 'styles/styles' => 'styles#styles'
   match 'styles/show' => 'styles#show'
+  match 'all_grain_recipe' => 'all_grain_recipes#sample'
   match 'style_comparisons/random' => 'style_comparisons#random'
   match 'style_comparisons/for_exam' => 'style_comparisons#for_exam'
   match 'judge_levels/all_levels' => 'judge_levels#all_levels'

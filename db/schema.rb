@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120223200714) do
+ActiveRecord::Schema.define(:version => 20120224145328) do
+
+  create_table "all_grain_recipes", :force => true do |t|
+    t.string "style_number"
+    t.string "name"
+    t.string "og"
+    t.string "fg"
+    t.string "ibu"
+    t.string "srm"
+    t.string "grain_bill"
+    t.string "hop_variety"
+    t.string "bittering_amt"
+    t.string "flavor_amt"
+    t.string "aroma_amt"
+    t.string "yeast"
+    t.string "mash_type"
+    t.string "ale_lager"
+  end
 
   create_table "characteristics", :force => true do |t|
     t.string "name"
