@@ -1,11 +1,11 @@
 <script type="text/javascript">
-jQuery(document).ready(function($){
-  var nIngredients    =3;// Math.ceil(Math.random()*4); // random question choice
-  var nBrewingProcess =3;// Math.ceil(Math.random()*4); // random question choice
+function setupIngBrewProc(){
+  var nIngredients    = Math.ceil(Math.random()*4); // random question choice
+  var nBrewingProcess = Math.ceil(Math.random()*4); // random question choice
 
   Ember.View.create({templateName: 'ingredients-'+nIngredients}).appendTo('.q7');
   Ember.View.create({templateName: 'brewing-process-'+nBrewingProcess}).appendTo('.q9');
-});
+}
 </script>
 <script type="text/x-handlebars" data-template-name="ingredients-1">
 <div>

@@ -1,5 +1,5 @@
 <script type="text/javascript">
-jQuery(document).ready(function($){
+function setupClassicExample(){
   BJCP.ClassicStyle = Ember.Object.create({
     style: undefined,
     setup: function(){
@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
   BJCP.ClassicStyle.setup();
 
   Ember.View.create({templateName: 'classic-example', style: BJCP.ClassicStyle}).appendTo('.q10');
-});
+}
 </script>
 
 <script type="text/x-handlebars" data-template-name="classic-example">

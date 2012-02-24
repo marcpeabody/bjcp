@@ -1,9 +1,9 @@
 <script type="text/javascript">
-jQuery(document).ready(function($){
+function setupPagination(){
   var paginationView = Ember.View.extend({templateName: 'pagination'});
   paginationView.create().appendTo('.paginationHeader');
   paginationView.create().appendTo('.paginationFooter');
-});
+};
 </script>
 <script type="text/x-handlebars" data-template-name="pagination">
 <div class="pagination">

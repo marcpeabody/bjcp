@@ -83,7 +83,7 @@ jQuery(document).ready(function($){
     tagName: "div",
     isVisible: function(){
       return BJCP.SampleQuiz.get('showingAnswers');
-    }.property('BJCP.SampleQuiz.showingAnswers'),
+    }.property('BJCP.SampleQuiz.showingAnswers')
   });
   BJCP.PageLink = Ember.View.extend({
     templateName: "nav-link",
@@ -152,6 +152,14 @@ jQuery(document).ready(function($){
   });
 
   Ember.View.create({templateName: 'sample-quiz'}).appendTo('.mainArea');
+  setupIntro();
+  setupPagination();
+  setupQ1();
+  setupComparisons();
+  setupRecipe();
+  setupIngBrewProc();
+  setupCharacteristics();
+  setupClassicExample();
 });
 </script>
 <style>
@@ -165,7 +173,7 @@ jQuery(document).ready(function($){
   {{page myPage="Intro"}}
   {{page myPage="1"}}<!-- Purpose, Levels, TF -->
   {{page myPage="2"}}<!-- Compare Styles -->
-{{page myPage="3"}}<!-- All-Grain Recipe -->
+  {{page myPage="3"}}<!-- All-Grain Recipe -->
   {{page myPage="4"}}<!-- Compare Styles -->
   {{page myPage="5"}}<!-- Characteristics -->
   {{page myPage="6"}}<!-- Three Cities -->
