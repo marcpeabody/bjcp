@@ -89,16 +89,14 @@ jQuery(document).ready(function($){
       </ul>
     </td>
   </tr>
-  {{#answer}}
-  <tr>
+  {{#answer tagName="tr"}}
     <td>{{level}}</td>
     <td>{{min_score}}</td>
     <td>{{min_points}}</td>
     <td>{{judge_points}}</td>
     <td {{bindAttr class="trueAlign"}}>
-      {{#answer}}{{#if gm_required}} Yes {{else}} No {{/if}}{{/answer}}</div>
+      {{#if gm_required}} Yes {{else}} No {{/if}}</div>
     </td>
-  </tr>
   {{/answer}}
   {{/each}}
 </table>
