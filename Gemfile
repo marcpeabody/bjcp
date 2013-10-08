@@ -6,11 +6,12 @@ gem 'rails', '3.1'
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 # gem 'sqlite3'
+# gem 'activerecord-sqlite3-adapter'
 gem 'pg'
 gem 'haml'
 
 # Asset template engines
-gem 'sass-rails'
+# gem 'sass-rails'
 gem 'coffee-script'
 gem 'uglifier'
 
@@ -36,4 +37,12 @@ end
 
 group :development do
   gem 'nokogiri'
+end
+
+group :assets do
+  gem 'compass-rails','~> 1.0.0.rc.2'
+  gem 'compass-colors'
+  gem 'sassy-buttons'
+  gem 'sass-rails'#, '~> 3.2.3'
+  # non-compass gems omitted for brevity
 end
