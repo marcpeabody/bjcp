@@ -5,7 +5,6 @@ gem 'rails', '3.1'
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
-# gem 'sqlite3'
 # gem 'activerecord-sqlite3-adapter'
 gem 'pg'
 gem 'haml'
@@ -40,6 +39,7 @@ group :development do
 end
 
 group :assets do
+  gem 'sqlite3'
   gem 'compass-rails','~> 1.0.0.rc.2'
   gem 'compass-colors'
   gem 'sassy-buttons'
