@@ -35,11 +35,11 @@ group :test do
 end
 
 group :development do
+  # gem 'sqlite3'
   gem 'nokogiri'
 end
 
 group :assets do
-  gem 'sqlite3'
   gem 'compass-rails','~> 1.0.0.rc.2'
   gem 'compass-colors'
   gem 'sassy-buttons'
